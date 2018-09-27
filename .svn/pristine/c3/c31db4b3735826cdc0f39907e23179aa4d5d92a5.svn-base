@@ -1,0 +1,211 @@
+package cn.weidai.service.bid;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+
+import cn.weidai.dao.bid.BidMapper;
+import cn.weidai.dao.borrower.BorrowerMapper;
+import cn.weidai.dao.fundRecord.FundRecordMapper;
+import cn.weidai.dao.lendRecord.LendRecordMapper;
+import cn.weidai.dao.receivables.ReceivablesMapper;
+import cn.weidai.dao.settlement.SettlementMapper;
+import cn.weidai.dao.user.UserMapper;
+import cn.weidai.pojo.Bid;
+import cn.weidai.pojo.FundRecord;
+import cn.weidai.pojo.LendRecord;
+import cn.weidai.pojo.Middleman;
+import cn.weidai.pojo.Receivables;
+import cn.weidai.pojo.Settlement;
+import cn.weidai.pojo.TransferBid;
+import cn.weidai.pojo.User;
+
+@Service
+public class BidServiceImpl implements BidService {
+	@Resource
+	private BidMapper bidMapper;
+	
+	@Resource
+	private FundRecordMapper  fundRecordMapper;
+	
+	@Resource
+	private LendRecordMapper lendRecordMapper;
+		
+	@Resource
+	private ReceivablesMapper receivablesMapper;
+	
+	@Resource
+	private UserMapper userMapper;
+	
+	@Resource
+	private BorrowerMapper borrowerMapper;
+	
+	@Resource
+	private SettlementMapper settlementMapper;
+	
+	
+	@Override
+	public Bid getBid(int uId) {
+		return bidMapper.getBil(uId);
+	}
+	/* 获取最近新增的优先智投债券，展示在首页界面
+	 * @see cn.weidai.service.bid.BidService#getYouBid()
+	 */
+	@Override
+	public List<Bid> getYouBid() {
+		return bidMapper.getYouBid();
+	}
+	
+	/* 获得最近新增的6标地
+	 * @see cn.weidai.service.bid.BidService#getSixBid()
+	 */
+	@Override
+	public List<Bid> getSixBid() {
+		return bidMapper.getSixBid();
+	}
+	
+	/*@author:何小平
+	 * 功能模块：优选智投标信息的展示
+	 * 方法：从数据库查询
+	 */
+	@Override
+	public List<Bid>getzhitouBid(Integer startNum, Integer pageSize){
+				return bidMapper.getzhitouBid(startNum, pageSize);
+		
+	}
+	
+	
+	/*<!--获取智投标的信息总条数！  -->*/
+	public int getztTotalCount(){
+		return bidMapper.getztTotalCount();
+	}
+	
+	/*@author:何小平
+	 * 功能模块：优选智投标的信息查询功能——跟据项目期限进行查询
+	 * 方法：从数据库查询
+	 */
+	
+	public List<Bid>getzhitouBid1(){
+		return bidMapper.getzhitouBid1();		
+	}
+	@Override
+	public List<Bid> getzhitouBid2() {
+		// TODO Auto-generated method stub
+		return bidMapper.getzhitouBid2();
+	}
+	@Override
+	public List<Bid> getzhitouBid3() {
+		// TODO Auto-generated method stub
+		return bidMapper.getzhitouBid3();
+	}
+	
+	@Override
+	public Bid getBidById(int bId) {
+		// TODO Auto-generated method stub
+		return bidMapper.getBidById(bId);
+	}
+	//散标
+	@Override
+	public List<Bid> zhgetsblb(Integer month) {
+		return bidMapper.zhgetsblb(month);
+	}
+	
+	@Override
+	public int updateMoneyByBid(Integer bId, Double bCanBeCastMoney) {
+		// TODO Auto-generated method stub
+		return bidMapper.updateMoneyByBid(bId, bCanBeCastMoney);
+	}
+	
+	
+	@Override
+	public synchronized boolean wd_BuyZhitouBid(Integer bId, Double inputmoney, Integer uId,
+			 Double uBalance, Integer bTimelimit,
+			Receivables receivables, FundRecord fundRecord,
+			LendRecord lendRecord,Double _bCanBeCastMoney,Double bCanBeCastMoney1,
+			Double boBalance,
+			Settlement settlement
+			) {
+		/*if(bCanBeCastMoney>=inputmoney && inputmoney>=500 && inputmoney<=uBalance){*/
+		/*	if(_bCanBeCastMoney>inputmoney){
+				//购买后减少相应的标的可投金额
+			bidMapper.updateMoneyByBid(bId, bCanBeCastMoney1);
+			//购买成功后用户余额做相应的减少
+			userMapper.updateUBalanceById(uId, uBalance);			
+			//购买成功之后插入一条资金交易记录
+			fundRecordMapper.insertFundRecord(fundRecord);
+			//购买成功后插入一条出借记录
+			lendRecordMapper.insertLendrecord(lendRecord);			
+		 return true;		
+		}else if(_bCanBeCastMoney==inputmoney){			
+			//购买后减少相应的标的可投金额
+			bidMapper.updateMoneyByBid(bId, bCanBeCastMoney1);
+			//购买成功后用户余额做相应的减少
+			userMapper.updateUBalanceById(uId, uBalance);			
+			//购买成功之后插入一条资金交易记录
+			fundRecordMapper.insertFundRecord(fundRecord);
+			//购买成功后插入一条出借记录
+			lendRecordMapper.insertLendrecord(lendRecord);		
+			//购买成功后添加一条收款明细信息
+			receivablesMapper.addReceivables(receivables);
+			//借款用户表格的修改
+			borrowerMapper.modifyBorrowerByzhitoubId(bId, boBalance);		
+			//借款记录
+			lendRecordMapper.insertloanRecord(lendRecord);
+			//插入利息结算表
+			settlementMapper.addSettlement(settlement);
+			return true;
+		}*/
+						
+			if(_bCanBeCastMoney>=inputmoney){
+					
+			//购买后减少相应的标的可投金额
+			int j=bidMapper.updateMoneyByBid(bId, bCanBeCastMoney1);
+			if(j>0){
+				System.out.println("修改成功，修改后的bCanBeCastMoney："+bCanBeCastMoney1);
+			}
+			//购买成功后用户余额做相应的减少
+			userMapper.updateUBalanceById(uId, uBalance);			
+			//购买成功之后插入一条资金交易记录
+			fundRecordMapper.insertFundRecord(fundRecord);
+			//购买成功后插入一条出借记录
+			lendRecordMapper.insertLendrecord(lendRecord);		
+			//购买成功后添加一条收款明细信息
+			receivablesMapper.addReceivables(receivables);
+			//借款用户表格的修改
+			borrowerMapper.modifyBorrowerByzhitoubId(bId, boBalance);		
+			//借款记录
+			lendRecordMapper.insertloanRecord(lendRecord);
+			//插入利息结算表
+			int i=settlementMapper.addSettlement(settlement);
+			if(i>0){
+			System.out.println("插入成功");
+			}
+			return true;
+		}
+			
+
+			
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

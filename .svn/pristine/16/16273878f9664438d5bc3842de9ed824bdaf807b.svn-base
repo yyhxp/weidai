@@ -1,0 +1,129 @@
+package cn.weidai.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import cn.weidai.pojo.User;
+import cn.weidai.tools.Constants;
+
+@Controller
+@RequestMapping(value="/users")
+public class LoginoutController {
+
+	private Logger logger = Logger.getLogger(LoginoutController.class);
+	
+	 /**
+     *  注销  退出功能
+     */
+	
+   @RequestMapping(value="/users")
+    public String  logout(HttpSession session){
+	   session.removeAttribute(Constants.USER_SESSION);
+	   session.invalidate();
+	   return "logindo";
+	   
+   }
+
+   /**
+    * 
+    *  注册
+    */
+   @RequestMapping(value="/Registers",method=RequestMethod.GET)
+     public String  loginzhuce(User user){
+   
+      logger.debug("-============================================== 进入注册");
+     return "register";
+   
+   
+   }
+   /**
+    * 
+    * 忘记密码1
+    */
+   
+   @RequestMapping(value="/modify.html", method=RequestMethod.GET)
+   public String  loginmima(User user){
+ 
+    logger.debug("-============================================= 进入忘记密码");
+   return "modifypwd1";
+    
+   }
+   /**
+    * 
+    * 忘记密码1
+    */
+   
+   @RequestMapping(value="/modify1.html", method=RequestMethod.GET)
+   public String  loginmima1(User user){
+ 
+    logger.debug("-=========================================== 进入忘记密码11");
+   return "modifypwd1";
+   
+
+   }
+
+   /**
+    * 
+    * 忘记密码2
+    */
+   
+   @RequestMapping(value="/modify2.html", method=RequestMethod.GET)
+   public String  loginmima2(User user){
+ 
+    logger.debug("-=========================================== 进入忘记密码22");
+   return "modifypwd2";
+   
+
+   }
+
+   
+   /**
+    * 
+    * 忘记密码2
+    */
+   
+   @RequestMapping(value="/modify3.html", method=RequestMethod.POST)
+   public String  loginmima3(User user){
+ 
+    logger.debug("-=========================================== 进入忘记密码22");
+   return "modifypwd2";
+   
+
+   }
+
+   /**
+    * 
+    * 忘记密码3
+    */
+   
+   @RequestMapping(value="/modify4.html", method=RequestMethod.GET)
+   public String  loginmima4(User user){
+ 
+    logger.debug("-=========================================== 进入忘记密码33");
+   return "modifypwd3";
+   
+
+   }
+
+   /**
+    * 
+    * 忘记密码3
+    */
+   
+   
+   
+   @RequestMapping(value="/modify5.html", method=RequestMethod.POST)
+   public String  loginmima5(User user){
+ 
+    logger.debug("-=========================================== 进入忘记密码33");
+   return "modifypwd3";
+   
+
+   }
+	
+	
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.receivables.ReceivablesMapper">
+	<insert id="addReceivables" parameterType="Receivables">
+	INSERT  INTO `receivables`
+	(`periods`,`tRDate`,`tRMoney`,`tRInterest`,`RDate`,`RMoney`,`RInterest`,`lStatus`,`bId`) 
+ VALUES (#{periods},#{tRDate},#{tRMoney},#{tRInterest},#{RDate},#{RMoney},#{RInterest},#{lStatus},#{bId})	
+	</insert>
+	
+	<!-- <select id="getReceivablesList" resultType="Receivables">
+	SELECT *FROM  `receivables` where 1=1
+	<if test="lStatus !=null">	
+	<choose when test="lStatus==yishou">
+	and lStatus='已收款' 
+	</choose>
+	<choose when test="lStatus==weishou">
+	and lStatus='未收款' 
+	</choose>
+	</if>
+	<if test="rbTimelimit !=null">
+	</choose>
+	<choose when test="rbTimelimit==3">
+  AND  rbTimelimit &lt;=3
+	</choose>		
+	<choose when test="rbTimelimit==6">
+  AND  rbTimelimit &lt;=6
+	</choose>	
+ <choose when test="rbTimelimit==12">
+  AND  rbTimelimit &gt;6
+	</choose>
+	</if>
+	<choose>
+	<when test="starNum !=null and pageSize!=null">limit #{starNum},#{pageSize}</when>
+			<otherwise>limit 0,#{pageSize}</otherwise>
+		</choose>
+	
+	</select> -->
+	
+	
+	<insert id="insertReceivables" parameterType="java.util.List">
+   insert into receivables
+    (periods, tRDate, tRMoney,
+			tRInterest,
+			 RDate, RMoney, RInterest, 
+			lStatus, bId,uId)
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+                    #{item.periods},                  
+					#{item.tRDate},
+					#{item.tRMoney},
+					#{item.tRInterest},				
+					#{item.RDate},
+					#{item.RMoney},
+					#{item.RInterest},
+					#{item.lStatus},
+					#{item.bId},
+					#{item.uId}
+    )
+    </foreach>
+
+</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

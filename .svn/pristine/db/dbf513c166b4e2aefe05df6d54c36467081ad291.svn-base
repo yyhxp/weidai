@@ -1,0 +1,158 @@
+.redTitle {
+    border-bottom: 1px solid #e3e3e3;
+    height: 53px;
+    line-height: 53px;
+    width: 100%;
+}
+
+.redTitle ul li {
+    float: left;
+    font-size: 14px;
+    text-align: center;
+    width: 60px;
+}
+
+.redTitle ul li a {
+    color: #212121;
+}
+
+.redTitle ul .cur {
+    border-bottom: 2px solid #3db1fa;
+    height: 52px;
+}
+
+.redBox {
+    width: 950px;
+}
+
+.redBox .item {
+    width: 440px;
+    height: 190px;
+    border: 1px solid #f6f6f6;
+    margin-top: 28px;
+    float: left;
+    position: relative;
+    margin-right: 22px;
+}
+
+.redBox .item .rmb {
+    position: absolute;
+    width: 10px;
+    height: 13px;
+    display: block;
+    left: 31px;
+    top: 31px;
+}
+
+.redBox .item .rmb_unused {
+    background-image: url("../img/center/icon_rmb.png");
+}
+
+.redBox .item .rmb_expire {
+    background-image: url("../img/center/icon_expire_rmb.png");
+}
+
+.redBox .item .itemLeft {
+    padding: 5px 30px;
+}
+
+.redBox .item .itemLeft .tl {
+    width: auto;
+}
+
+.redBox .item .itemLeft .tr {
+    padding-top: 22px;
+    line-height: 20px;
+    margin-left: 10px;
+}
+
+.redBox .item .itemLeft p {
+    line-height: 22px;
+}
+
+.redBox .item a {
+    width: 30px;
+    height: 190px;
+    display: table-cell;
+    color: #fff;
+    word-break: break-all;
+    letter-spacing: 14px;
+    padding: 0px 0 0 14px;
+    vertical-align: middle;
+    text-align: center;
+    ;
+}
+
+.redBox .item .unused {
+    background-color: #fe6536;
+}
+
+.redBox .item .used {
+    background-color: #e0e0e0;
+}
+
+.redBox .item .DinFont {
+    font-size: 54px;
+    font-weight: bold;
+    padding-left: 12px;
+}
+
+.redTitle2 {
+    border-bottom: 0;
+}
+
+.redTitle2 ul .cur {
+    border-bottom: 0;
+}
+
+.tabBox {
+    display: none;
+}
+
+.redTitle2 {
+    width: 100%;
+}
+
+.redTitle2 ul {
+    padding: 15px 0 10px 5px;
+}
+
+.redTitle2 ul li {
+    float: left;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding: 4px 4px;
+    margin: 0 15px;
+}
+
+.redTitle2 ul li.cur {
+    background: #eceff1;
+    border-radius: 5px;
+}
+
+.redTitle2 ul li a:hover {
+    color: #36adf7;
+}
+
+.verticalBox {
+    display: table;
+    position: absolute;
+    width: 30px;
+    height: 190px;
+    right: 10px;
+    top: 0px;
+}
+
+.contentBox {
+    /* display: table-cell; */
+    width: 30px;
+}
+
+.redpacketWord {
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+
+/*# sourceMappingURL=myRedPacket.css.map */

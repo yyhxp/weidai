@@ -1,0 +1,822 @@
+@charset "utf-8";
+/*
+ * artDialog skin
+ * http://code.google.com/p/artdialog/
+ * (c) 2009-2011 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
+ */
+
+/* common start */
+body {
+    _margin: 0;
+    _height: 100%; /*IE6 BUG*/
+}
+
+.aui_outer {
+    text-align: left;
+}
+
+table.aui_border, table.aui_dialog {
+    border: 0;
+    margin: 0;
+    border-collapse: collapse;
+    width: auto;
+}
+
+table.aui_dialog {
+    background-color: #fff;
+}
+
+.aui_nw, .aui_n, .aui_ne, .aui_w, .aui_c, .aui_e, .aui_sw, .aui_s, .aui_se, .aui_header, .aui_tdIcon, .aui_main, .aui_footer {
+    padding: 0;
+     padding: 0;
+    height: 0;
+    line-height: 0;
+    width: 0;
+    border: 0;
+    width: auto;
+}
+
+.aui_header, .aui_buttons button {
+    font: 12px/1.11 'Microsoft Yahei', Tahoma, Arial, Helvetica, STHeiti;
+    _font-family: Tahoma, Arial, Helvetica, STHeiti;
+    -o-font-family: Tahoma, Arial;
+}
+
+.aui_title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.aui_state_noTitle .aui_title {
+    display: none;
+}
+
+.aui_close {
+    display: block;
+    position: absolute;
+    text-decoration: none;
+    outline: none;
+    _cursor: pointer;
+}
+
+.aui_close:hover {
+    text-decoration: none;
+}
+
+.aui_main {
+    text-align: center;
+    min-width: 9em;
+    min-width: 0 \9/*IE8 BUG*/;
+}
+
+.aui_content {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    text-align: left;
+    border: none 0;
+    background: #fff;
+}
+
+.aui_content.aui_state_full {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0 !important;
+    height: 100%;
+}
+
+.aui_loading {
+    width: 96px;
+    height: 32px;
+    text-align: left;
+    text-indent: -999em;
+    overflow: hidden;
+    background: url(../image/loading_more.gif) no-repeat center center;
+}
+
+.aui_icon {
+    vertical-align: middle;
+}
+
+.aui_icon div {
+    width: 48px;
+    height: 48px;
+    margin: 10px 0 10px 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.aui_buttons {
+    padding: 8px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.aui_buttons button {
+    margin-left: 15px;
+    padding: 6px 8px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+    *padding: 4px 10px;
+    *height: 2em;
+    letter-spacing: 2px;
+    font-family: Tahoma, Arial9 !important;
+    width: auto;
+    overflow: visible;
+   /* width: 1;*/
+    color: #333;
+    border: solid 1px #999;
+    border-radius: 5px;
+    background: #DDD;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#DDDDDD');
+    background: linear-gradient(top, #FFF, #DDD);
+    background: -moz-linear-gradient(top, #FFF, #DDD);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#DDD));
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 1);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0 -1px 0 rgba(0, 0, 0, .09);
+    -moz-transition: -moz-box-shadow linear .2s;
+    -webkit-transition: -webkit-box-shadow linear .2s;
+    transition: box-shadow linear .2s;
+}
+
+.aui_buttons button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.aui_buttons button:focus {
+    outline: none 0;
+    border-color: #426DC9;
+    box-shadow: 0 0 8px rgba(66, 109, 201, .9);
+}
+
+.aui_buttons button:hover {
+    color: #000;
+    border-color: #666;
+}
+
+.aui_buttons button:active {
+    border-color: #666;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DDDDDD', endColorstr='#FFFFFF');
+    background: linear-gradient(top, #DDD, #FFF);
+    background: -moz-linear-gradient(top, #DDD, #FFF);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DDD), to(#FFF));
+    box-shadow: inset 0 1px 5px rgba(66, 109, 201, .9), inset 0 1px 1em rgba(0, 0, 0, .3);
+}
+
+.aui_buttons button[disabled] {
+    cursor: default;
+    color: #666;
+    background: #DDD;
+    border: solid 1px #999;
+    filter: alpha(opacity=50);
+    opacity: .5;
+    box-shadow: none;
+}
+
+button.aui_state_highlight {
+    color: #FFF;
+    border: solid 1px #3399dd;
+    background: #2288cc;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc');
+    background: linear-gradient(top, #33bbee, #2288cc);
+    background: -moz-linear-gradient(top, #33bbee, #2288cc);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc));
+    text-shadow: -1px -1px 1px #1c6a9e;
+}
+
+button.aui_state_highlight:hover {
+    color: #FFF;
+    border-color: #1c6a9e;
+}
+
+button.aui_state_highlight:active {
+    border-color: #1c6a9e;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc');
+    background: linear-gradient(top, #33bbee, #2288cc);
+    background: -moz-linear-gradient(top, #33bbee, #2288cc);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc));
+}
+
+/* common end */
+
+.aui_inner {
+    background: #f7f7f7;
+}
+
+.aui_titleBar {
+    width: 100%;
+    height: 0;
+    position: relative;
+    bottom: 30px;
+    _bottom: 0;
+    _margin-top: -30px;
+}
+
+.aui_title {
+    height: 49px;
+    line-height: 49px;
+    padding: 0 25px 0 0;
+    _padding: 0;
+    text-indent: 5px;
+    font-weight: 700;
+    font-size: 16px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.aui_nw, .aui_ne, .aui_sw, .aui_se, .aui_n, .aui_s{
+    background-color: #fff;
+
+}
+
+
+.aui_nw {
+    width: 15px;
+    height: 49px;
+}
+
+.aui_ne {
+    width: 15px;
+    height: 49px;
+}
+
+.aui_sw {
+    width: 15px;
+    height: 49px;
+}
+
+.aui_se {
+    width: 15px;
+    height: 18px;
+    background-position: -15px -38px;
+/*    _png: blue /ie6/ se . png;*/
+}
+
+.aui_close {
+    top: 17px;
+    right: 10px;
+    _z-index: 1;
+    width: 15px;
+    height: 16px;
+    _font-size: 0;
+    _line-height: 0;
+    text-indent: -9999em;
+/*    background-image: url(blue/close.png);*/
+/*    _png: blue /ie6/ close . png;*/
+
+}
+
+
+
+.aui_n, .aui_s {
+    background-repeat: repeat-x;
+}
+
+.aui_n {
+    background-position: 0 -56px;
+/*    _png: blue /ie6/ n . png;*/
+}
+
+.aui_s {
+    background-position: 0 -94px;
+/*    _png: blue /ie6/ s . png;*/
+}
+
+.aui_w, .aui_e {
+    background-color: #fff;
+}
+
+.aui_w {
+    background-position: left top;
+ /*   _png: blue /ie6/ w . png;*/
+}
+
+.aui_e {
+    background-position: right bottom;
+ /*   _png: blue /ie6/ e . png;*/
+}
+
+aui_icon, .aui_main {
+    padding-top: 3px;
+}
+
+@media screen and (min-width: 0) {
+    .aui_outer {
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(2, 37, 69, .4);
+        -moz-transition: -moz-box-shadow linear .2s;
+        -webkit-transition: -webkit-box-shadow linear .2s;
+        transition: -webkit-box-shadow linear .2s;
+    }
+
+    .aui_state_drag .aui_outer {
+        box-shadow: none;
+    }
+
+    .aui_state_lock .aui_outer {
+        box-shadow: 0 3px 26px rgba(0, 0, 0, .9);
+    }
+
+    .aui_outer:active {
+        box-shadow: 0 0 5px rgba(2, 37, 69, .1) !important;
+    }
+
+    .aui_state_drag .aui_outer {
+        box-shadow: none !important;
+    }
+
+    .aui_nw, .aui_ne, .aui_sw, .aui_se, .aui_n, .aui_s {
+        background-color: #fff;
+    }
+
+    .aui_nw {
+        width: 5px;
+        height: 31px;
+    }
+
+    .aui_ne {
+        width: 5px;
+        height: 31px;
+        background-position: -5px 0;
+/*        _png: blue /ie6/ ne . png;*/
+    }
+
+    .aui_sw {
+        width: 5px;
+        height: 5px;
+        background-position: 0 -31px;
+    }
+
+    .aui_se {
+        width: 5px;
+        height: 5px;
+        background-position: -5px -31px;
+    }
+
+
+
+
+    .aui_n {
+        background-position: 0 -36px;
+    }
+
+    .aui_s {
+        background-position: 0 -67px;
+    }
+
+    .aui_w, .aui_e {
+        background-color: #fff;
+    }
+}
+
+.aui_state_noTitle .aui_nw, .aui_state_noTitle .aui_ne, .aui_state_noTitle .aui_sw, .aui_state_noTitle .aui_se {
+    width: 3px;
+    height: 3px;
+}
+
+.aui_state_noTitle .aui_inner {
+    border: 1px solid #666;
+    background: #FFF;
+}
+
+.aui_state_noTitle .aui_outer {
+    box-shadow: none;
+}
+
+.aui_state_noTitle .aui_nw, .aui_state_noTitle .aui_n, .aui_state_noTitle .aui_ne, .aui_state_noTitle .aui_w, .aui_state_noTitle .aui_e, .aui_state_noTitle .aui_sw, .aui_state_noTitle .aui_s, .aui_state_noTitle .aui_se {
+    background: rgba(0, 0, 0, .05);
+    background: #000 \9 !important;
+    filter: alpha(opacity=5) !important;
+}
+
+.aui_state_noTitle .aui_titleBar {
+    bottom: 0;
+    _bottom: 0;
+    _margin-top: 0;
+}
+
+.aui_state_noTitle .aui_close {
+    top: 0;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    text-indent: 0;
+    font-family: Helvetica, STHeiti;
+    _font-family: '\u9ed1\u4f53', 'Book Antiqua', Palatino;
+    font-size: 18px;
+    text-decoration: none;
+    color: #214FA3;
+    background: none;
+    filter: !important;
+}
+
+.aui_state_noTitle .aui_close:hover, .aui_state_noTitle .aui_close:active {
+    text-decoration: none;
+    color: #900;
+}
+
+
+
+.alertLoginClass, .alertAuthenticationClass, .alertMobileClass {
+    padding: 35px 0 10px 0;
+    width: 550px;
+    position: relative;
+}
+
+.alertFormUl {
+    float: left;
+    width: 100%;
+}
+
+.alertFormUl li {
+    float: left;
+    width: 100%;
+    padding-bottom: 2px;
+    position: relative;
+}
+.alertFormUl li.txt{
+    height: 64px;
+}
+.alertFormUl .top_tips{
+    text-align: center;
+    color: #9e9e9e;
+    margin-bottom: 15px;
+}
+.alertFormUl li.but{
+    margin-top: 6px;
+}
+
+.alertFormUl li .alertName {
+    float: left;
+    width: 178px;
+    font-size: 14px;
+    text-align: right;
+    line-height: 40px;
+    padding-right: 12px;
+}
+
+.alertFormUl li .alertInputText {
+    float: left;
+    height: 38px;
+    width: 228px;
+    line-height: 38px;
+    padding: 0 10px;
+    border: #e3e3e3 solid 1px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+.alertFormUl li.but p {
+    float: left;
+    width: 200px;
+    margin-left: 112px;
+    display: inline;
+    font-size: 14px;
+    text-align: right;
+}
+.alertFormUl .forget,.alertFormUl .goRegist{
+    height: 20px;
+    line-height: 20px;
+    float: right;
+    margin-right: 110px;
+}
+.alertFormUl .forget{
+   margin-top: 10px;
+    color: #9e9e9e;
+}
+.alertFormUl .forget span{
+    margin: 0 10px;
+    color: #9e9e9e;
+}
+.alertFormUl .goRegist{
+    margin-bottom: 10px;
+}
+.alertFormUl li .btn {
+    text-align: center;
+    background: #34b0fd;
+    display: inline-block;
+    border: none;
+    width: 250px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+}
+.alertFormUl li .btn:hover{
+    background-color: #53bafa;
+}
+.alertFormUl li .submit{
+    margin-left: 190px;
+}
+
+.alertFormUl li button:hover {
+    background: #53bafa;
+}
+
+.alertFormUl li.error{
+    height: 22px;
+}
+.error p ,.alertFormUl li .valid-error{
+/*    background: url(../../../img/user.png);*/
+}
+.alertFormUl li.error p {
+    float: left;
+    line-height: 22px;
+    margin-left: 190px;
+    background-position: -184px -57px;
+    display: inline;
+    background-repeat: no-repeat;
+    display: none;
+}
+.alertFormUl li .valid-error{
+    height: 22px;
+    float: left;
+    position: relative;
+    width: 100%;
+    color: #f24343;
+    margin-left: 190px;
+    padding-top:10px;
+    padding-left: 15px;
+/*    background:url("../image/error.png") no-repeat 0 3px;*/
+}
+#login_error_info_id{
+    color: #f24343;
+    position: absolute;
+    height: 30px;
+    left: -5px;
+    line-height: 30px;
+    text-align: center;
+    top: -3px;
+    width: 560px;
+    background: #fbecec none repeat scroll 0 0;
+    border-bottom: 1px solid #f5d1d1;
+    display: none;
+}
+
+.alertFormUl li.code input {
+    width: 120px;
+}
+/* 
+.alertFormUl li.code img {
+    float: left;
+    height: 38px;
+    width: 100px;
+    margin-left: 10px;
+    display: inline;
+} */
+.alertFormUl li .getcode{
+    display: inline-block;
+    height: 40px;
+    left: 349px;
+    line-height: 40px;
+    position: absolute;
+    text-align: center;
+    width: 90px;
+    color: #36adf7;
+}
+.alertFormUl li .repeat{
+    color: #cccccc;
+}
+.alertFormUl li .line {
+    background-color: #ededed;
+    display: inline-block;
+    height: 20px;
+    left: 349px;
+    position: absolute;
+    top: 9px;
+    width: 1px;
+}
+.alertFormUl li .tips{
+    margin-top: 20px;
+    padding-bottom: 0;
+}
+
+.alertFormUl li.code a.aBlue {
+    float: left;
+    line-height: 38px;
+    font-size: 14px;
+    margin-left: 12px;
+    display: inline;
+}
+
+.alertFormUl li.center p {
+    line-height: 20px;
+    font-size: 12px;
+    color: #9e9e9e;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.alertFormUl li.center p img {
+    margin-right: 8px;
+}
+.pl30{
+    padding-left: 30px;
+}
+
+.alertFormUl li a.aLink {
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    margin-left: 112px;
+    background: #34b0fd;
+    border: none;
+    width: 200px;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: bold;
+    outline: none;
+}
+
+.alertFormUl li a.aLink:hover {
+    background: #53bafa;
+    text-decoration: none;
+}
+
+.alertFormUl li.tipsLi {
+    padding: 10px 0 15px;
+}
+.alertFormUl li.tipsLi h3 em{
+    padding-left: 40px;
+    position: relative;
+    font-size: 14px;
+}
+.alertFormUl li.tipsLi i {
+    font-size: 35px;
+    left: 0;
+    top:-15px;
+    position: absolute;
+}
+.alertFormUl li.tipsLi i.success{
+    color: #6bc456;
+}
+.alertFormUl li.tipsLi i.error{
+    color: #f24343;
+}
+
+.alertFormUl li.tipsLi i.successIcon {
+    background-position: 0 -440px;
+}
+
+.alertFormUl li.tipsLi i.errorIcon {
+    background-position: -78px -440px;
+}
+
+.alertFormUl li.tipsLi p {
+    font-size: 14px;
+    color: #34b0fd;
+    line-height: 24px;
+}
+
+.alertFormUl li.noText p {
+    margin-left: 112px;
+    font-size: 14px;
+}
+
+.alertFormUl li.noText p em {
+    color: #e3393c;
+    font-weight: bold;
+}
+
+.alertFormUl li.tipsLi h3 {
+    line-height: 50px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.alertFormUl li.tipsLi .errorH p {
+    line-height: 25px;
+    color: #f60;
+    font-size: 14px;
+}
+
+.alertFormUl li .unit {
+    float: left;
+    line-height: 40px;
+    padding-left: 6px;
+    color: #a5a5a5;
+    font-size: 14px;
+}
+
+.alertTips {
+    position: absolute;
+    width: 456px;
+    left: -28px;
+    top: -24px;
+    background: #d8f2fc;
+    padding: 14px 0;
+    color: #f60;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.alertTips i {
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-position: 0 -510px;
+    margin: 0 12px 0 50px;
+    display: inline;
+}
+
+.alertTips i.ask {
+    background-position: -80px -510px;
+}
+
+.alertPaymentClass {
+    width: 478px;
+}
+
+.alertPaymentClass .tips {
+    border: #faebcc solid 1px;
+    border-radius: 2px;
+    background: #fcf8e3;
+    padding: 15px 25px;
+    line-height: 24px;
+    position: relative;
+    font-size: 16px;
+}
+
+.alertPaymentClass p {
+    font-size: 14px;
+}
+
+.alertPaymentClass .alertBnt {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.alertPaymentClass .alertBnt a {
+    display: inline-block;
+    padding: 0 20px;
+    height: 31px;
+    background-color: #34b0fd;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 31px;
+    font-size: 14px;
+    color: #fff;
+    font-family: "微软雅黑";
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin: 0 15px;
+}
+
+.alertPaymentClass .alertBnt a:hover {
+    background-color: #5cbdfb;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.alertPaymentClass .alertBnt a.noBnt {
+    color: #666;
+    background-color: #f4f4f4;
+    border: 1px solid #e1e1e1;
+    border-radius: 3px;
+}
+
+.alertPaymentClass .alertBnt a.noBnt:hover {
+    color: #666;
+    background-color: #f0f0f0;
+}
+
+.alertLoading {
+    width: 550px;
+    text-align: center;
+}
+
+.xyTextAlert {
+    width: 460px;
+    position: relative;
+    height: 400px;
+    overflow: auto;
+}
+
+.xyTextAlert h3 {
+    padding: 3px 0;
+    font-size: 14px;
+}
+
+.xyTextAlert p {
+    line-height: 18px;
+    padding: 3px 0;
+}

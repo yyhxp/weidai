@@ -1,0 +1,341 @@
+*,
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 16px;
+    font-family: '微软雅黑';
+    color: #3c3c3c;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+}
+
+.wdpc-header-div {
+    width: 100%;
+    height: 1500px;
+}
+
+.touming {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1500px;
+    z-index: 2;
+    background-color: rgba(1, 1, 1, 0.3);
+    display: none;
+}
+
+.wdpc-header {
+    /* width: 100%; */
+    width: 1247px;
+    height: 94px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.wdpc-header-a1 {
+    width: 1184px;
+    height: 38px;
+    margin: auto;
+}
+
+.wdpc-header-a2 {
+    width: 1184px;
+    height: 57px;
+    margin: auto;
+	color:black;
+}
+
+.header-a1 {
+    margin-top: 8px;
+    width: 50%;
+    width: 550.5px;
+    height: 100%;
+    float: right;
+}
+
+.header-a2 {
+    margin-left: 8px;
+    width: 14%;
+    height: 100%;
+    float: left;
+}
+
+.header-a3 {
+    margin-left: 8px;
+    width: 11.5%;
+    height: 100%;
+    float: left;
+}
+
+.header-a4 {
+    margin-left: 14px;
+    width: 9.5%;
+    height: 100%;
+    float: left;
+}
+
+.header-a5 {
+    margin-left: 8px;
+    position: absolute;
+    width: 12.5%;
+    height: 100%;
+    float: left;
+}
+
+.weidaiwang {
+    font-size: 28px;
+    margin-right: 8%;
+    margin-top: 8px;
+    font-family: Cursive;
+    float: left;
+}
+
+.actived {
+    margin-top: -3px;
+    width: 76%;
+    height: 100%;
+    float: left;
+}
+
+.actived-a1 {
+    height: 39px;
+    color: #fff;
+    margin: 10px 15px 0px 15px;
+    padding: 0px 15px 0px 15px;
+    float: left;
+}
+
+.actived-a1:hover {
+    font-weight: 800;
+}
+
+.actived-x {
+    border-bottom: 3px solid #fff;
+    font-weight: 800;
+}
+
+.wdpc-header:hover .actived-a1 {
+    color: #171717;
+}
+
+.header-ax {
+    color: #fff;
+    font-size: 12px;
+}
+
+.wdpc-header:hover .header-ax {
+    color: #8a8a8a;
+}
+
+.wdpc-header:hover .header-ax:hover {
+    color: #22A7FF;
+}
+
+.wdpc-header:hover .actived-x {
+    border-bottom: 3px solid #171717;
+    font-weight: 700;
+}
+
+.a-a {
+    color: #fff;
+    font-size: 12px;
+    width: 10px;
+    height: 10px;
+}
+
+.zhanghu {
+    position: absolute;
+    top: 8px;
+    left: 20%;
+    color: #fff;
+    font-weight: 800;
+}
+
+.span-x {
+    float: left;
+    color: #fff;
+    position: absolute;
+}
+
+.kf-font {
+    font-size: 12px;
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    left: 18px;
+    top: 4px;
+}
+
+.kf-font1 {
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    left: 20px;
+    top: 4px;
+}
+
+.wdpc-header:hover .kf-font1 {
+    color: #8a8a8a;
+}
+
+.wdpc-header:hover .kf-font1:hover {
+    color: #22A7FF;
+}
+
+.wdpc-header:hover .kf-font {
+    color: #8a8a8a;
+}
+
+.wdpc-header:hover .kf-font:hover {
+    color: #22A7FF;
+}
+
+.wdpc-header:hover .zhanghu {
+    color: #171717;
+}
+
+.wdpc-header:hover {
+    background-color: #fff;
+}
+
+.wdpc-header:hover .weidaiwang {
+    color: #22A7FF;
+}
+
+body {
+    background-color: #22A7FF;
+}
+
+@media screen and (max-width: 1260px) {
+    html,
+    body {
+        width: 1280px;
+        background-position: 50%;
+    }
+    body {
+        overflow: auto;
+    }
+}
+
+@media screen and (min-width: 1260px) {
+    html,
+    body {
+        width: 100%;
+        background-position: 50%;
+    }
+    body {
+        overflow: auto;
+    }
+    .wdpc-header {
+        width: 100%;
+    }
+}
+
+.wdpc-header-div {
+    width: 100%;
+    height: 600px;
+}
+
+.swiper-button-prev:hover {
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+.swiper-button-next:hover {
+    background-color: rgba(1, 1, 1, 0.5);
+}
+
+.gricon {
+    background: url('../image/gr.png');
+    width: 18px;
+    height: 18px;
+}
+
+.wdpc-header:hover .gricon {
+    background: url('../image/gr1.png');
+    width: 18px;
+    height: 18px;
+}
+
+.wxicon {
+    background: url('../image/wx.png');
+    width: 22px;
+    height: 16px;
+}
+
+.wdpc-header:hover .wxicon {
+    background: url('../image/wx1.png');
+    width: 22px;
+    height: 16px;
+}
+
+.kficon {
+    background: url('../image/kf.png');
+    width: 16px;
+    height: 16px;
+}
+
+.wdpc-header:hover .kficon {
+    background: url('../image/kf1.png');
+}
+
+.wdpc-header:hover .span-x {
+    color: #8a8a8a;
+}
+
+.wdpc-header:hover .a-a {
+    color: #8a8a8a;
+}
+
+.xwxw:hover .zhanghu {
+    color: #22A7FF;
+}
+
+.xwxw:hover .gricon {
+    background: url('../image/gr2.png');
+}
+
+.swiper-wrapper {
+    width: 1280px;
+}
+
+.wdpc-header-01 {
+    width: 100%;
+    height: 94px;
+    position: absolute;
+    top: 94px;
+    left: 0;
+    background-color: #FFF;
+    z-index: 2000;
+    display: none;
+}
+
+.wdpc-header-02 {
+    width: 70%;
+    height: 94px;
+    line-height: 94px;
+    float: right;
+}
+
+.wdpc-header-push {
+    float: left;
+    margin-right: 35px;
+}
+
+.wdpc-header-push a {
+    color: #171717;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.wdpc-header-push a:hover {
+    color: #22A7FF;
+}

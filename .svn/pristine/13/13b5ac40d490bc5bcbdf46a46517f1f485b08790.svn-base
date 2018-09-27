@@ -1,0 +1,132 @@
+.style-helpBox-3AbtW {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+div {
+    display: block;
+}
+
+.style-helpBox-3AbtW .style-helpBreadBar-2X-Iq {
+    width: 100%;
+    border-left: 5px solid #4896f6;
+    height: 15px;
+    color: #171717;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 15px;
+    line-height: .9;
+    margin-bottom: 30px;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p {
+    background: #fcfcfc;
+    position: relative;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-leftBox-CYL0B {
+    width: 240px;
+    padding: 15px 0;
+}
+
+.fl {
+    float: left;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-leftBox-CYL0B ul li.style-actived-1ZbK7 {
+    color: #2096fe;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-leftBox-CYL0B ul li {
+    padding-left: 50px;
+    box-sizing: border-box;
+    color: #171717;
+    font-size: 14px;
+    font-weight: 700;
+    height: 70px;
+    line-height: 70px;
+    position: relative;
+    cursor: pointer;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-leftBox-CYL0B ul li .style-rightIrrow-3q7jI {
+    position: absolute;
+    right: 30px;
+    top: 0;
+}
+
+.iconfont {
+    font-style: normal;
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-leftBox-CYL0B ul li {
+    padding-left: 50px;
+    box-sizing: border-box;
+    color: #171717;
+    font-size: 14px;
+    font-weight: 700;
+    height: 70px;
+    line-height: 70px;
+    position: relative;
+    cursor: pointer;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-middleBox-3-ycH {
+    width: 10px;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    left: 240px;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-rightBox-37eFQ {
+    width: 950px;
+    padding: 15px 25px;
+    box-sizing: border-box;
+}
+/*让右边的盒子移动*/
+.fr {
+    float: right;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-rightBox-37eFQ ul li .style-rightBoxTitle-1lVqM {
+    position: relative;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-rightBox-37eFQ ul li {
+    color: #171717;
+    font-size: 14px;
+    line-height: 70px;
+    position: relative;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.style-helpBox-3AbtW .style-helpBoxCont-sbG3p .style-rightBox-37eFQ ul li .style-showAnswer-1VCcR {
+    font-size: 14px;
+    color: #989898;
+    line-height: 1.5;
+    padding-right: 30px;
+    /*height: 0px;*/
+   /* overflow: hidden;*/
+    display: none;
+}
+#test1{
+    cursor: pointer;
+    color: red;
+}
+
+
+

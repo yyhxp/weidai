@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.settlement.SettlementMapper">
+	<select id="settleAccountsOfInterest" parameterType="settlement" resultType="settlement">
+	select * from settlement 
+	where  sRemittance=#{sRemittance}
+	</select>
+	<update id="modifySettlementById" parameterType="settlement">
+		update settlement
+		<set>
+		<if test="uid!=null"> uid=#{uid}, </if>
+		<if test="boId!=null"> boId=#{boId}, </if>
+		<if test="bid!=null"> bid=#{bid}, </if>
+		<if test="lid!=null"> lid=#{lid}, </if>
+		<if test="sRemittance!=null"> sRemittance=#{sRemittance}, </if>
+		<if test="sCapital!=null"> sCapital=#{sCapital}, </if>
+		<if test="sCapOfMon!=null"> sCapOfMon=#{sCapOfMon}, </if>
+		<if test="sIntOfMon!=null"> sIntOfMon=#{sIntOfMon}, </if>
+		</set>
+		where sId=#{sId}
+	</update>
+	<delete id="delSettlementByLid" parameterType="int">
+	delete from settlement where lid=#{lid}
+	</delete>
+	<insert id="addSettlement" parameterType="settlement">
+	insert into settlement (uid,boId,bid,lid,sRemittance,sCapital,sCapOfMon,sIntOfMon)
+	value 
+	(#{uid},#{boId},#{bid},#{lid},#{sRemittance},#{sCapital},#{sCapOfMon},#{sIntOfMon})
+	</insert>
+<<<<<<< .mine
+	
+	
+	
+=======
+	<update id="addSettlementList" parameterType="java.util.List">
+	update 	user set uBalance =
+	<foreach collection="list" item="item" separator=" " index="index" open="case uId" close="end">
+	when #{item.uId} then #{item.uBalance}
+	</foreach>
+	where uId in
+	<foreach collection="list" item="item" separator="," index="index" open="(" close=")">
+	#{item.uId}
+	</foreach>
+	</update>
+>>>>>>> .r81
+</mapper>

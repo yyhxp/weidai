@@ -1,0 +1,542 @@
+
+.wdpchead {
+    width: 100%;
+    height: 94px;
+}
+
+.layouts {
+    width: 1190px;
+    margin: 0 auto;
+}
+
+.tophead {
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 201;
+    height: 0;
+    -webkit-transition: height 0.1s ease 0s;
+    transition: height 0.1s ease 0s;
+}
+
+.tophead.alwaysHover {
+    position: fixed;
+    height: 190px;
+    background: #fff;
+}
+
+.alwaysHover .navbar li,
+.alwaysHover .navbar li a,
+.alwaysHover .navbar span,
+.stayHover .navbar li,
+.stayHover .navbar li a,
+.stayHover .navbar span {
+    color: #666;
+}
+
+.stayHover .navbar li a:hover {
+    color: #1e92ff;
+    font-weight: bold;
+}
+
+.alwaysHover .navbar li a:hover {
+    font-weight: bold;
+}
+
+.navbar ul {
+    float: right;
+    /*width: 630px;*/
+    font-size: 12px;
+    font-family: HiraginoSansGB-W3;
+    /* overflow: hidden; */
+}
+
+.navbar ul li {
+    padding: 0 12px;
+    color: #fff;
+    float: left;
+}
+
+.navbar ul li a {
+    display: inline-block;
+    height: 14px;
+    margin: 14px 0;
+    color: #fff;
+    position: relative;
+}
+
+.navbar ul li i {
+    font-size: 16px;
+    font-style: normal;
+}
+
+.erweima {
+    position: relative;
+}
+
+.erweimaBox {
+    display: none;
+    width: 262px;
+    height: 187px;
+/*    background-image: url(../img/newHead/erweima1x.png);
+    background-image: -webkit-image-set(url(../img/newHead/erweima1x.png) 1x, url(../img/newHead/erweima2x.png) 2x);*/
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 35px;
+    left: -184px;
+}
+
+.navbar ul span {
+    float: left;
+    height: 14px;
+    margin: 14px 0;
+    color: #ffffff;
+}
+
+.navmenu {
+    /* border-bottom: 1px solid #f1f1f1; */
+    height: 57px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.alwaysHover .navmenu{
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.newlogo {
+    float: left;
+    display: inline-block;
+    width: 74px;
+    height: 25px;
+  /*  background-image: url(../image/logo1x.png);*/
+ /*   background-image: -webkit-image-set(url(../img/newHead/logo1x.png) 1x, url(../img/newHead/logo2x.png) 2x);*/
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 120px;
+    margin-top: 10px;
+}
+
+.alwaysHover .newlogo,
+.stayHover .newlogo {
+    text-decoration: none;
+    float: left;
+    display: inline-block;
+    width: 74px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 120px;
+    margin-top: 10px;
+/*    background-image: url(../img/newHead/logohover1x.png);
+    background-image: -webkit-image-set(url(../img/newHead/logohover1x.png) 1x, url(../img/newHead/logohover2x.png) 2x);*/
+}
+
+.stayHover .navmenu ul li a:hover {
+    font-weight: bold;
+}
+
+.stayHover .navmenu ul li a.actived {
+    border: 0;
+    font-weight: bold;
+    border-bottom: 3px solid #171717;
+}
+
+.navmenu ul {
+    width: 996px;
+    float: left;
+}
+
+.navmenu ul li {
+    float: left;
+    padding-right: 35px;
+    height: 100%;
+}
+
+.alwaysHover .navmenu ul li a,
+.stayHover .navmenu ul li a {
+    color: #171717;
+}
+
+.alwaysHover .navmenu ul li a.actived {
+    border-bottom: 3px solid #171717;
+}
+
+.navmenu ul li a {
+    display: inline-block;
+    padding: 18px 14px;
+    color: #fff;
+    font-size: 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 57px;
+}
+
+.navmenu ul li a.actived {
+    border: 0;
+    border-bottom: 3px solid #fff;
+}
+
+.stayHover .navmenu ul li a.actived {
+    border: 0;
+    border-bottom: 3px solid #171717
+}
+
+.navmenu ul li:nth-child(6) {
+    float: right;
+    padding-right: 0;
+    font-weight: bold;
+}
+
+.navmenu ul li:nth-child(6) a:hover {
+    color: #2096fe
+}
+
+.navmenu ul li:nth-child(1) {
+    padding-right: 0;
+}
+
+.navmenu ul li:nth-child(2) {
+    padding-left: 35px;
+}
+
+.navmenu ul li:nth-child(6) a:hover .userIcon {
+    color: #2096fe
+}
+
+.navShow {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 99px;
+    height: 90px;
+    display: none;
+    left: 0;
+}
+
+.navShow ol li a {
+    padding: 0;
+}
+
+.navShow ol li:nth-child(6) {
+    float: left;
+    font-weight: normal;
+    padding-right:30px;
+}
+
+.showBox {
+    width: 996px;
+    margin-left: 194px;
+}
+
+.stayHover {
+    height: 99px;
+    background: #fff;
+    width: 100%;
+    position: fixed;
+    border-bottom:1px solid #ccc;
+}
+.scrollHover{
+    height: 57px;
+    
+}
+.scrollHover .navbar{
+    display: none;
+}
+.showBox ol li {
+    float: left;
+    line-height: 90px;
+    padding-right: 30px;
+    padding-left: 5px;
+}
+
+.showBox ol li:nth-child(1) {
+    padding-right: 30px;
+}
+.showBox ol li:nth-child(2) {
+    padding-left: 0;
+}
+
+.userIcon {
+    font-style: normal;
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.showBox ol li a {
+    font-size: 14px;
+    color: #171717;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.showBox ol li a:hover {
+    color: #2096fe;
+}
+
+.mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 200;
+}
+
+.Footer {
+    background: #171717;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+.leftDl {
+    float: left;
+}
+
+.leftDl dl {
+    float: left;
+    width: 200px;
+    margin-right: 50px;
+    display: inline;
+    font-size: 14px;
+    color: #fff;
+}
+
+.leftDl dt {
+    float: left;
+    width: 100%;
+    padding-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.leftDl dd {
+    float: left;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.leftDl dd strong {
+    font-size: 16px;
+}
+
+.leftDl dd a {
+    color: #e5ebf0;
+}
+
+.leftDl dd em {
+    font-size: 12px;
+    color: #e5ebf0;
+}
+
+.rightDl {
+    float: right;
+    width: 120px;
+    text-align: center;
+}
+
+.rightDl dl {
+    display: inline;
+    font-size: 14px;
+    color: #fff;
+}
+
+.rightDl dl dt {
+    padding-bottom: 15px;
+    font-size: 16px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    color: #e5ebf0;
+    font-weight: bold;
+}
+
+.rightDl dd img {
+    margin-bottom: 5px;
+}
+
+.copyRight {
+    margin-top: 45px;
+    font-size: 14px;
+    color: #e5ebf0;
+    text-align: center;
+}
+
+.copyRight p {
+    font-size: 14px;
+    color: #e5ebf0;
+    text-align: center;
+}
+
+.copyRight p img {
+    vertical-align: middle;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.space {
+    height: 800px;
+}
+
+em {
+    font-style: normal;
+}
+
+.floatBar {
+    width: 50px;
+    position: fixed;
+    left: 50%;
+    margin-left: 610px;
+    bottom: 20px;
+    display: block;
+    z-index: 1001;
+}
+
+.floatBar ul li {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    margin-top: 8px;
+}
+
+.floatBox {
+    display: block;
+    position: relative;
+    background: #1e92ff;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    position: relative;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.floatBox:hover {
+    background: #0079eb;
+}
+
+.floatBox i {
+    display: block;
+    margin: auto;
+    width: 21px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+/*    background-image: url(../img/newHead/floatBar11x.png);
+    background-image: -webkit-image-set(url(../img/newHead/floatBar11x.png) 1x, url(../img/newHead/floatBar12x.png) 2x);*/
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.floatBox span {
+    font-size: 12px;
+    display: block;
+    width: 30px;
+    height: 34px;
+    position: absolute;
+    line-height: 1.5;
+    top: 0;
+    right: 0;
+    bottom: -90px;
+    left: 0;
+    margin: auto;
+    opacity: 0;
+    -webkit-transition: all .2s;
+}
+
+.floatBar ul li a .floatBox:hover i {
+    display: none;
+}
+
+.floatBar ul li a .floatBox:hover span {
+    bottom: 0;
+    opacity: 1;
+}
+
+.app i {
+    width: 20px;
+    height: 20px;
+  /*  background-image: url(../img/newHead/floatBar41x.png);
+    background-image: -webkit-image-set(url(../img/newHead/floatBar41x.png) 1x, url(../img/newHead/floatBar42x.png) 2x);*/
+}
+
+.wechat i {
+    width: 25px;
+    height: 19px;
+/*    background-image: url(../img/newHead/floatBar51x.png);
+    background-image: -webkit-image-set(url(../img/newHead/floatBar51x.png) 1x, url(../img/newHead/floatBar52x.png) 2x);*/
+}
+
+.onlineChat i {
+    width: 25px;
+    height: 19px;
+/*    background-image: url(../img/newHead/floatBar21x.png);
+    background-image: -webkit-image-set(url(../img/newHead/floatBar21x.png) 1x, url(../img/newHead/floatBar22x.png) 2x);*/
+}
+
+.computer i {
+    width: 20px;
+    height: 20px;
+/*    background-image: url(../img/newHead/floatBar31x.png);
+    background-image: -webkit-image-set(url(../img/newHead/floatBar31x.png) 1x, url(../img/newHead/floatBar32x.png) 2x);*/
+}
+
+.goTop i {
+    width: 21px;
+    height: 12px;
+  /*  background-image: url(../img/newHead/floatBar61x.png);
+    background-image: -webkit-image-set(url(../img/newHead/floatBar61x.png) 1x, url(../img/newHead/floatBar62x.png) 2x);*/
+}
+
+.wechat:hover span {
+    text-align: center;
+    width: 37px;
+}
+
+.app:hover .showApp {
+    display: block;
+}
+
+.showApp {
+    display: none;
+    position: absolute;
+    right: 45px;
+    top: 0;
+    width: 102px;
+    height: 116px;
+/*    background-image: url(../img/newHead/appBox1x.png);
+    background-image: -webkit-image-set(url(../img/newHead/appBox1x.png) 1x, url(../img/newHead/appBox2x.png) 2x);*/
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.wechat:hover .showWechat {
+    display: block;
+}
+
+.showWechat {
+    display: none;
+    position: absolute;
+    right: 45px;
+    top: 0px;
+    width: 102px;
+    height: 116px;
+   /* background-image: url(../img/newHead/wechatBox1x.png);
+    background-image: -webkit-image-set(url(../img/newHead/wechatBox1x.png) 1x, url(../img/newHead/wechatBox2x.png) 2x);*/
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.backTop {
+    display: none;
+}

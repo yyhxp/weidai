@@ -1,0 +1,60 @@
+package cn.weidai.service.lendRecord;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+
+import cn.weidai.pojo.LendRecord;
+@Service
+public interface LendRecordService {
+	public List<LendRecord> getLendRecord(Integer uId,Integer month);
+	/**根据债券状态和用户id查询出借记录
+	 * @param lStatus
+	 * @return
+	 */
+	public List<LendRecord> getLendRecordBylStatus(LendRecord lendRecord);
+	
+	/**
+	 * 根据出借记录的id查找出，出借信息
+	 * @param lid
+	 * @return
+	 */
+	public LendRecord getLendRecordById(int lid);
+	/**根据出借记录查找分页查询出借记录条数
+	 * @param lendRecord
+	 * @return
+	 */
+	public int getLRecordTotalCount(LendRecord lendRecord); 
+
+	
+	/*
+	 * 插入出借信息
+	 */
+	public int insertLendrecord(LendRecord lendRecord);
+	
+		
+	/*
+	 * 点击购买按钮，借款记录添加
+	 * 
+	 * @何小平
+	 */
+	public int insertloanRecord(LendRecord lendRecord);
+	
+	
+	/*
+	 * 从lendRecord表中查询lid
+	 */
+	public LendRecord selectLidfromLendrecord(Integer uId,String lStatus);
+	
+	
+	
+	
+
+/*	//查询总条数
+	public int getLendRecord1(Integer uId);*/
+	
+
+
+}

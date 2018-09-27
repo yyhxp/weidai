@@ -1,0 +1,196 @@
+*{margin: 0; padding: 0;}
+
+/* logo图标 */
+#c-logo{
+    width: 100%;
+    height: 100px;
+}
+.c-logos{
+    width: 1000px;
+    margin: 0 auto;
+    display: block;
+}
+#c-logo img{
+    margin-top: 20px;
+}
+
+/* 注册标题 */
+#c-blue{
+    width: 100%;
+    height: 58px;
+    background-color: #2953a0;
+}
+.c-blues{
+    width: 1000px;
+    margin: 0 auto;
+}
+.c-blues-p{
+    color: white;
+}
+.c-blues-p p{
+    padding-top: 14px;
+    float: left;
+}
+
+/* 填写内容区域 */
+#c-content {
+    width: 100%;
+    height: 896px;
+}
+.c-content-g{
+    width: 1000px;
+    height: 890px;
+    margin: 0 auto;
+    display: block;
+}
+.c-con-t{
+    width: 1000px;
+    height: 815px;
+    margin-top: 30px;
+}
+
+/* c-one统一样式 */
+.c-one{
+    margin-left: 20px;
+}
+.c-one p{
+    margin-top: 0px;
+    margin-left: 45px;
+}
+.c-one label{
+    width: 90px;
+    height: 25px;
+    font-size: 17px;
+    font-weight: 400;
+}
+.c-one span{
+    width: 325px;
+    height: 40px;
+}
+.c-one input{
+    width: 325px;
+    height: 38px;
+    padding-left: 25px;
+}
+
+/* c-two统一样式 */
+.c-two{
+    margin-left: 20px;
+}
+.c-two p{
+    margin-top: 0px;
+    margin-left: 140px;
+    font-size: 14px;
+    color: #406dbf;
+}
+.c-two label{
+    width: 90px;
+    height: 40px;
+    margin-left: 45px;
+    font-size: 17px;
+    font-weight: 400;
+}
+.c-two span{
+    width: 325px;
+    height: 40px;
+    display: inline-block;
+}
+.c-two input{
+    width: 325px;
+    height: 38px;
+    font-size: 16px;
+    padding-left: 25px;
+}
+
+/* c-three统一样式 */
+.c-three{
+    margin-left: 20px;
+}
+.c-three p{
+    margin-top: 0px;
+    margin-left: 45px;
+}
+.c-three label{
+    width: 90px;
+    height: 25px;
+    font-size: 17px;
+    font-weight: 400;
+}
+.c-three span{
+    width: 260px;
+    height: 40px;
+}
+.c-three input{
+    width: 208px;
+    height: 38px;
+    padding-left: 25px;
+}
+.c-three button{
+    margin-left: 20px;
+    background-color: white;
+    border: 1px solid #406dbf;
+    color: #406dbf;
+}
+
+/* c-four统一样式 */
+.c-four{
+    margin-left: 20px;
+}
+.c-four p{
+    margin-top: 5px;
+    margin-left: 45px;
+}
+.c-four label{
+    width: 90px;
+    height: 25px;
+    font-size: 17px;
+    font-weight: 400;
+}
+.c-four span{
+    width: 325px;
+    height: 40px;
+}
+.c-four input{
+    width: 325px;
+    height: 38px;
+    padding-left: 25px;
+}
+#pass{
+    margin-left: 139px;
+    color: #406dbf;
+    font-size: 14px;
+}
+
+.c-six button{
+    width: 325px;
+    height: 40px;
+    margin-left: 157px;
+    border: 1px solid #406dbf;
+    color: blue;
+    margin-top: 10px;
+    font-size: 18px;
+    background-color: white;
+}
+.c-six button:hover{
+    color: white;
+    background-color: #406dbf;
+}
+.c-wenzi{
+    width: 950px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #dc1919;
+    margin-top: 52px;
+    border: 1px solid silver;
+}
+.c-wenzi p{
+    margin-top: 12px;
+    margin-left: 12px;
+}
+
+/* 底部背景色 */
+#footer{
+    width: 100%;
+    height: 80px;
+    background-color: #484848;
+}

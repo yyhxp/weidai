@@ -1,0 +1,40 @@
+package cn.weidai.service.lendRecord;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+
+import cn.weidai.dao.lendRecord.LendRecordMapper;
+import cn.weidai.pojo.LendRecord;
+
+@Service
+public class LendRecordServiceImpl implements LendRecordService {
+	@Resource
+	private LendRecordMapper lendRecordMapper;
+	/* 根据债券状态和用户id查询出借记录
+	 * (non-Javadoc)
+	 * @see cn.weidai.service.lendRecord.LendRecordService#getLendRecordBylStatus(java.lang.String, java.lang.Integer)
+	 */
+	public List<LendRecord> getLendRecordBylStatus(LendRecord lendRecord) {
+		return lendRecordMapper.getLendRecordBylStatus(lendRecord);
+	}
+	/* 根据出借记录的id查找出，出借信息
+	 * (non-Javadoc)
+	 * @see cn.weidai.service.lendRecord.LendRecordService#getLendRecordById(int)
+	 */
+	@Override
+	public LendRecord getLendRecordById(int lid) {
+		return lendRecordMapper.getLendRecordById(lid);
+	}
+	/* 根据出借记录查找分页查询出借记录条数
+	 * (non-Javadoc)
+	 * @see cn.weidai.service.lendRecord.LendRecordService#getLRecordTotalCount(cn.weidai.pojo.LendRecord)
+	 */
+	@Override
+	public int getLRecordTotalCount(LendRecord lendRecord) {
+		return lendRecordMapper.getLRecordTotalCount(lendRecord);
+	}
+}

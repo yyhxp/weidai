@@ -1,0 +1,64 @@
+package cn.weidai.bidTest;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import cn.weidai.pojo.LendRecord;
+import cn.weidai.pojo.Receivables;
+import cn.weidai.service.Receivables.ReceivablesService;
+import cn.weidai.service.lendRecord.LendRecordService;
+
+public class ReceivablesTest {
+  
+	public ApplicationContext act=null;
+	public Logger logger=Logger.getLogger(ReceivablesTest.class);
+	public ReceivablesService receivablesServiceImpl=null;
+	
+	@Before
+	public void before(){
+		act = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		receivablesServiceImpl=(ReceivablesService)act.getBean("receivablesServiceImpl");	
+	}
+	
+	
+	
+	@Test
+	public void test07() {			
+		Receivables receivables=new Receivables();
+		receivables.setbId(1);
+		receivables.setPeriods(1);
+		receivables.setlStatus("已收款");
+		
+		try {
+			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse("2005-06-09");
+			receivables.setRDate(date1);
+			Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2015-06-09");
+			receivables.settRDate(date2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 		
+		receivables.setRInterest(100.00);
+		receivables.setRMoney(100.00);
+		receivables.settRInterest(100.00);
+		receivables.settRMoney(100.00);
+				int i=receivablesServiceImpl.addReceivables(receivables);
+				
+				if(i>0){
+					logger.debug("插入成功！——————————————————————————————————————————");
+				}
+	}
+	
+	
+	
+	
+	
+	
+	
+}

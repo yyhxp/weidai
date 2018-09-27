@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.fundRecord.FundRecordMapper">
+	<insert id="addFundRecord" parameterType="FundRecord">
+		insert into FundRecord (fCode,uId,oTypeId,fTranAmount,fStatus,fDate)
+		value (#{fCode},#{uId},#{oTypeId},#{fTranAmount},#{fStatus},#{fDate})
+	</insert>
+
+<insert id="insertFundRecord" parameterType="FundRecord">
+		insert into FundRecord (fCode,uId,oTypeId,fTranAmount,fStatus,fDate,fAfterTranAmount)
+		value (#{fCode},#{uId},#{oTypeId},#{fTranAmount},#{fStatus},#{fDate},#{fAfterTranAmount})
+</insert>
+	<insert id="insertFundRecord" parameterType="FundRecord">
+		insert into FundRecord (fCode,uId,oTypeId,fTranAmount,fStatus,fDate)
+		value (#{fCode},#{uId},#{oTypeId},#{fTranAmount},#{fStatus},#{fDate})
+
+	</insert>
+<select id="getFund" resultType="FundRecord">
+	SELECT oTypeName,fTranAmount,fStatus,fDate,fAfterTranAmount,bProjectTotolMoney FROM fundrecord AS f,operatetype AS o,bid AS b WHERE f.uId=#{uId} and f.oTypeId=o.oTypeId AND f.uId=b.uId
+		<if test="month!=null and month!='' ">
+			 and fDate BETWEEN (SELECT DATE_ADD(NOW(),INTERVAL -#{month} MONTH)) AND NOW()  
+		</if>
+		limit #{starNum},2
+</select> 
+<select id="getFund1" resultType="int">
+	SELECT COUNT(1) FROM fundrecord WHERE uId=#{uId}
+	<if test="month!=null and month!='' ">
+			 and fDate BETWEEN (SELECT DATE_ADD(NOW(),INTERVAL -#{month} MONTH)) AND NOW()
+		</if>
+</select> 
+</mapper>

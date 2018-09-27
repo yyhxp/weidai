@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.user.UserMapper">
+	<select id="getUserTest" resultType="user" parameterType="int">
+	select uName,uPassword,uBalance from user where uId=#{uId}
+	</select>
+	<select id="getUserTest1" resultType="user" parameterType="int">
+	select * from user where uId=#{uId}
+	</select>
+<!-- 登录 -->
+    <select id="logindo" resultType="user" parameterType="user" >
+    select * from user where uName = #{uName} and uPassword = #{uPassword}
+        </select>
+        
+    <select id="getUserInfo" resultType="int" parameterType="user">
+	select count(0) from user where uName=#{uName} and uIDCard=#{uIDCard}
+	</select>    
+    
+    <select id="getUserCard" resultType="int" parameterType="user">
+    select  uID from user where uName=#{uName} and uIDCard=#{uIDCard}
+    </select>
+    
+    <insert id="addUserCard"  parameterType="bank" >
+     insert into bank (uId,bkCardnum,bkPhone,bkPayPassword,bkBalance,uIDCard) values (#{uId},#{bkCardnum},#{bkPhone},#{bkPayPassword},#{bkBalance},#{uIDCard});
+    </insert>
+    
+    <select id="selectUserId" resultType="int" parameterType="user">
+    select count(0) from user where uIDCard=#{uIDCard}
+    </select>
+    
+   <update id="addUserMonney"  parameterType="user">
+   update  user set uBalance=#{uBalance} where uId=#{uId}
+   </update>
+    
+    <update id="modifUserById" parameterType="user">
+    update user
+    <set>
+    <if test="rid!=null"> rid=#{rid}, </if>
+    <if test="uPhone!=null"> uPhone=#{uPhone}, </if>
+    <if test="uPassword!=null"> uPassword=#{uPassword}, </if>
+    <if test="uRefPhone!=null"> uRefPhone=#{uRefPhone},</if>
+    <if test="uIDCard!=null"> uIDCard=#{uIDCard},</if>
+    <if test="uName!=null"> uName=#{uName},</if>
+    <if test="uSafe!=null"> uSafe=#{uSafe},</if>
+    <if test="uLoginStatus!=null"> uLoginStatus=#{uLoginStatus},</if>
+    <if test="uStatus!=null"> uStatus=#{uStatus},</if>
+    <if test="uBalance!=null"> uBalance=#{uBalance},</if>
+    <if test="uRegdate!=null"> uRegdate=#{uRegdate},</if>
+    <if test="uModifydate!=null"> uModifydate=#{uModifydate},</if>
+    </set>
+    where uId=#{uId}
+    </update>
+        
+    <update id="updateUBalanceById">
+    UPDATE USER SET uBalance=#{uBalance} WHERE  uId=#{uId}  
+    </update>
+    
+    
+    
+    
+        
+</mapper>

@@ -1,0 +1,19 @@
+package cn.weidai.dao.receivables;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.weidai.pojo.Bid;
+import cn.weidai.pojo.LendRecord;
+import cn.weidai.pojo.Receivables;
+
+public interface ReceivablesMapper {
+	
+	/*
+	 * 点击购买按钮，添加一条收款明细
+	 */
+	
+	public int addReceivables(Receivables receivables);
+	
+}

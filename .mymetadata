@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="weidai"
+  id="myeclipse.1533823989104"
+  context-root="/weidai"
+  j2ee-spec="1.7"
+  archive="weidai.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,80 @@
+* {
+    padding: 0;
+    margin: 0;
+
+}
+ul,li {
+    list-style: none;
+}
+.mycj-header {
+    background: url('../images/bannerShort1x3wywW.jpg');
+    width: 100%;
+    height: 736px;
+}
+.mycj-header1 {
+    width: 1190px;
+    height: 736px;
+    margin: auto;
+    position: relative;
+}
+.mycj-header-a1 {
+    position: absolute;
+    width: 641px;
+    right: 45px;
+    top: 145px;
+}
+.mycj-header-a2 {
+    width: 641px;
+    margin-top: 20px;
+    height: 405px;
+    background-position: top;
+    background: url('../images/背景(28).png');
+}
+.mycj-header-a3 {
+    width: 100%;
+    padding: 20px 55px 10px;
+    box-sizing: border-box;
+}
+.mycj-clearfix {
+    width: 100%;
+    height: 16px;
+    font-size: 12px;
+}
+.mycj-clearfix1 {
+    height: 16px;
+    font-size: 14px;
+}
+.mycj-clearfix2 {
+    width: 235px;
+    height: 10px;
+    float: right;
+    position: relative;
+    top: -11px;
+}
+.mycj-clearfix3 {
+    width: 190px;
+    height: 5px;
+    background-color: #eeeeee;
+    float: left;
+    border-radius: 15px;
+}
+.mycj-clearfix3 > span {
+    width: 100%;
+    height: 5px;
+    background-color: #22A7FF;
+    border-radius: 15px;
+}
+.mycj-clearfix2 > span {
+    font-size: 12px; 
+    float: left;
+    float: right;
+    position: relative;
+    top: -8px;
+}
+.mycj-header-a1 > h1 {
+    background: url('../images/titles1x8q9ya.png');
+    margin: 0 auto;
+    width: 571px;
+    height: 112px;
+    background-position: 50%;
+}

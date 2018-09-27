@@ -1,0 +1,90 @@
+package cn.weidai.dao.bid;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.weidai.pojo.Bid;
+import cn.weidai.pojo.LendRecord;
+
+public interface BidMapper {
+	/**
+	 * 获取最近新增未满标的2个优先智投
+	 * @return
+	 */
+	public List<Bid> getYouBid();
+	
+	
+	public Bid getBil(int UId);
+		
+	
+	
+	/**获得最近新增的6标地
+	 * @return
+	 */
+	public List<Bid> getSixBid();
+	
+	/*@author:何小平
+	 * 功能模块：优选智投标信息的展示
+	 * 方法：从数据库查询
+	 */
+	
+	public List<Bid>getzhitouBid(
+			@Param(value="starNum")Integer startNum, 
+			@Param(value="pageSize")Integer pageSize);
+	
+	/*<!--获取智投标的信息总条数！  -->*/
+	public int getztTotalCount();
+	
+	
+	/*@author:何小平
+	 * 功能模块：优选智投标的信息查询功能——跟据项目期限小于3个月进行查询
+	 * 方法：从数据库查询
+	 */
+	
+	public List<Bid>getzhitouBid1();
+	
+	/*@author:何小平
+	 * 功能模块：优选智投标的信息查询功能——跟据项目期限3-12个月进行查询
+	 * 方法：从数据库查询
+	 */
+	
+	public List<Bid>getzhitouBid2();
+	
+	
+	/*@author:何小平
+	 * 功能模块：优选智投标的信息查询功能——跟据项目期限12个月以上进行查询
+	 * 方法：从数据库查询
+	 */
+	
+	public List<Bid>getzhitouBid3();
+	
+	
+	/*
+	 * 获得散标总数量
+	 */
+	public int getsbcount();	
+	
+	/*
+	 * 通过标的id获取标的详细信息
+	 */
+	public Bid getBidById(@Param("bId")int bId);
+	
+
+  /*
+   * 点击优选智投购买按钮，该标的剩余可投金额减少相应数额
+   * 何小平
+   */
+	public int updateMoneyByBid(@Param("bId")Integer bId,@Param("bCanBeCastMoney")Double bCanBeCastMoney);
+	/*
+	 * 散标
+	 * 
+	 * */
+	public List<Bid> zhgetsblb(@Param("month")Integer month);
+
+
+	/*public int updatebfullByBid(@Param("bId")Integer bId);*/
+	
+	
+	
+}

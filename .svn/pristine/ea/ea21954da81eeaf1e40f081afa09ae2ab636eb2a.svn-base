@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.lendRecord.LendRecordMapper">
+	<!-- 查询数据的条数 -->
+	<!--  <select id="getLendRecord1" parameterMap="int" resultType="int">
+		SELECT COUNT(1)FROM lendrecord WHERE uId=#{uId}
+	</select>-->
+	<select id="getLendRecord" resultType="LendRecord">
+	SELECT bProjectCode,lDate,lendMoney,bBearingDate, lStatus FROM bid AS b,lendrecord AS l WHERE l.uId=#{uId} AND b.bId=l.bId
+		<if test="month!=null and month!='' ">
+			 and lDate BETWEEN (SELECT DATE_ADD(NOW(),INTERVAL -#{month} MONTH)) AND NOW()
+		</if>
+	</select>
+	<select id="getLendRecordBylStatus" resultType="lendRecord" parameterType="lendRecord">
+	select * from (
+		select l.lid AS lid,l.bTid AS bTid,l.bId AS bId,l.lDate AS
+		lDate,l.lAmount AS lAmount,l.lendMoney AS lendMoney,
+		b.bProjectCode AS bProjectCode,bRepayment,b.bTimelimit AS bTimelimit,b.bBearingDate AS
+		bBearingDate,b.bRate AS bRate
+		from lendrecord l,bid b where l.lStatus=#{lStatus}
+		and l.bTid in (1,2) and l.bid=b.bid and l.uId=#{uId}
+		union all
+		select l.lid AS lid,l.bTid AS bTid,l.bId AS bId,l.lDate AS 
+		lDate,l.lAmount AS lAmount,l.lendMoney AS lendMoney,
+		b.bProjectCode AS bProjectCode,bRepayment,b.bTimelimit AS bTimelimit,b.bBearingDate AS
+		bBearingDate,b.bRate AS bRate
+		from lendrecord l,bid b,TransferBid t where l.lStatus=#{lStatus}
+		and l.bTid=3 and l.bid=t.tid and t.bid=b.bid and l.uId=#{uId}
+		) as record
+		order by 8 desc
+		limit #{starNum},#{pageSize}
+	</select>
+
+	
+	<!-- 插入智投标的出借信息 -->	
+	<insert id="insertLendrecord"  parameterType="lendRecord">
+	INSERT  INTO `lendrecord`
+	(`bTid`,`uId`,`bId`,`lDate`,`lendMoney`,`lExTotInterest`,`lStatus`) 
+	VALUES 
+	(#{bTid},#{uId},#{bId},#{lDate},#{lendMoney},#{lExTotInterest},#{lStatus});	
+	</insert>
+	
+	
+
+	<insert id="addLendRecord" parameterType="lendRecord">
+		insert into LendRecord (bTid,uId,bId,lDate,lAmount,lendMoney,lExTotInterest, lStatus)
+		value
+		(#{bTid},#{uId},#{bId},#{lDate},#{lAmount},#{lendMoney},#{lExTotInterest},#{lStatus})
+	</insert>
+	
+	<select id="getLendRecordById" resultType="lendRecord" parameterType="int">
+	select * from LendRecord where lid=#{lid}
+	</select>
+	
+	<select id="getLRecordTotalCount" resultType="int" parameterType="lendRecord" >
+	select count(1) from (
+		select l.lid AS lid,l.bTid AS bTid,l.bId AS bId,l.lDate AS
+		lDate,l.lendMoney AS lendMoney,
+		b.bProjectCode AS bProjectCode,b.bTimelimit AS bTimelimit,b.bBearingDate AS
+		bBearingDate,b.bRate AS bRate
+		from lendrecord l,bid b where l.lStatus=#{lStatus}
+		and l.bTid in (1,2) and l.bid=b.bid and l.uId=#{uId}
+		union all
+		select l.lid AS lid,l.bTid AS bTid,l.bId AS bId,l.lDate AS lDate,l.lendMoney
+		AS lendMoney,
+		b.bProjectCode AS bProjectCode,b.bTimelimit AS bTimelimit,b.bBearingDate AS
+		bBearingDate,b.bRate AS bRate
+		from lendrecord l,bid b,TransferBid t where l.lStatus=#{lStatus}
+		and l.bTid=3 and l.bid=t.tid and t.bid=b.bid and l.uId=#{uId}
+		) as record
+	</select>
+<<<<<<< .mine
+	
+		<!-- 点击购买按钮，借款记录添加 -->
+	
+	<insert id="insertloanRecord" parameterType="LendRecord">
+	INSERT  INTO `lendrecord`(`bTid`,`uId`,`bId`,`lDate`,`lAmount`,`lendMoney`,`lExTotInterest`,`lStatus`) VALUE
+	 (#{bTid},#{uId},#{bId},#{lDate},#{lAmount},#{lendMoney},#{lExTotInterest},#{lStatus})
+	</insert>
+
+<select id="selectLidfromLendrecord" resultType="LendRecord">
+	SELECT lid FROM lendrecord WHERE 1=1
+	<if test ="lStatus !=null">
+	and lStatus=#{lStatus}
+    </if>
+    <if test="uId !=null">
+     and uId=#{uId}
+      </if>
+	</select>
+
+
+
+
+
+=======
+	<update id="modifLRecordById" parameterType="lendRecord">
+	update lendRecord 
+	<set>
+	<if test="bTid!=null"> bTid=#{bTid}, </if>
+	<if test="uId!=null"> uId=#{uId}, </if>
+	<if test="bId!=null"> bId=#{bId}, </if>
+	<if test="lDate!=null"> lDate=#{lDate}, </if>
+	<if test="lAmount!=null"> lAmount=#{lAmount}, </if>
+	<if test="lendMoney"> lendMoney=#{lendMoney}, </if>
+	<if test="lExTotInterest" > lExTotInterest=#{lExTotInterest}, </if>
+	<if test="lStatus"> lStatus=#{lStatus}, </if>
+	</set>
+	where lid=#{lid}
+	</update>
+	<delete id="delLRecord" parameterType="int">
+	delete from lendRecord where bid=#{bId} and lStatus='zz'
+	</delete>
+	<select id="getLidByTUBD" resultType="int" parameterType="lendRecord">
+	select lid from lendRecord where bTid=#{bTid} and uId=#{uId} and bId=#{bId} and lDate=#{lDate} and lStatus='yj'
+	</select>
+>>>>>>> .r91
+</mapper>

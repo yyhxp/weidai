@@ -1,0 +1,116 @@
+*{margin: 0; padding: 0;}
+
+/* 网页头部样式 */
+#header{
+    width: 100%;
+    height: 65px;
+}
+.h-logo{
+    line-height: 61px;
+    margin-left: 15%;
+}
+.h-logo img{
+    margin-top: 15px;
+    margin-bottom: 24px;
+}
+.h-logo em{
+    display: inline-block;
+    margin-left: 20px;
+    color: #bdbdbd;
+    font-style: normal;
+}
+.h-logo a{
+    text-decoration: none;
+    font-size: 20px;
+    text-align: center;
+    margin-left: 12px;
+    color: #212121;
+}
+
+
+/* 网页主体样式 */
+#content{
+    width: 100%;
+    height: 600px;
+    position: relative;
+    background: url("../images/backgroundimage.jpg") no-repeat;
+    background-size: 100% 600px;
+}
+.h-con{
+    width: 380px;
+    height: 400px;
+    position: absolute;
+    left: 40%; top: 13%;
+    background: hsla(0,0%,100%,0.75);
+}
+.h-con-title{
+    width: 380px;
+    height: 40px;
+}
+.login-title{
+    text-align: center;
+    margin-top: 55px;
+    font-size: 18px;
+}
+.h-con-content{
+    width: 380px;
+    height: 300px;
+}
+.h-con-content form{
+    width: 320px;
+    height: 210px;
+    margin-left: 45px;
+    line-height: 30px;
+}
+.h-con-content .tijiao button{
+    font-size: 18px;
+    color: whitesmoke;
+    background-color: #44b2f7;
+}
+.liji{
+    width: 380px;
+}
+.liji a{
+    font-size: 15px;
+    text-decoration: none;
+    color: black;
+}
+.liji p{
+    margin-left: 50%;
+}
+.liji a:hover{
+    text-decoration: none;
+    color: blue;
+}
+
+
+/* 网页底部样式 */
+#footer{
+    width: 100%;
+    height: 150px;
+}
+.guanyu{
+    width: 100%;
+    height: 70px;
+}
+.guanyu p{
+    padding-top: 45px;
+    text-align: center;
+    font-size: 17px;
+    color: black;
+    cursor: pointer;
+}
+.guanyu span{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.beizhu{
+    width: 100%;
+    height: 30px;
+}
+.beizhu p{
+    text-align: center;
+    font-size: 15px;
+    color: silver;
+    margin-top: 30px;
+}

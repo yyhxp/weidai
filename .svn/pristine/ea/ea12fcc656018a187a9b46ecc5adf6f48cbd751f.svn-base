@@ -1,0 +1,29 @@
+/**
+ *
+ */
+package cn.weidai.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 类名称:Test1
+ * 类描述:
+ * 创建人:苏俊杰
+ * 创建时间:2018-8-13 下午4:05:37
+ */
+
+@Controller
+@RequestMapping("/test")
+public class Test1 {
+
+	@RequestMapping("/pay")
+	public String tesss(){
+		return "products";
+	}
+	
+	@RequestMapping("/te")
+	public String te(){
+		return "test";
+	}
+}

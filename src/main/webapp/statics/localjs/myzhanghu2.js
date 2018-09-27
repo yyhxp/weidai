@@ -1,0 +1,130 @@
+//出借记录AJAX
+
+$(function (){
+	var pageContext = $("#PageContext").val()
+	$.ajax({
+		url:pageContext+'/test/record',
+		contentType : 'application/json;charset=utf-8',
+		type:'GET',
+		data:{},
+		dataType:'json',
+		error:function(data){
+			alert("数据加载失败，请稍后再试！")
+		},
+		success:function(data){
+			if(data=="nodata"){
+				alert("无合适的优选智能标！")
+			}else{
+				listr="";
+				for(var i=0;i<data.length;i++){
+					listr+="<li class=\"tar\" style=\"width:20%;\">"+data[i].bTName+"+"+data[i].bProjectCode+"</li>"+
+					"<li class=\"tar\" style=\"width:10%;\">"+data[i].lDate+"</li>"+
+					"<li class=\"tar\" style=\"width:10%;\">"+data[i].bBearingDate+"</li>"+
+					"<li class=\"tar\" style=\"width:10%;\">"+data[i].lendMoney.toFixed(2)+"</li>"+
+					"<li class=\"tar\" style=\"width:10%;\">"+data[i].expected.toFixed(2)+"</li>"+
+					"<li class=\"tar\" style=\"width:10%;\">"+data[i].bRate+"%</li>"+
+					"<li class=\"tar\" style=\"width:10%;\">"+data[i].bTimelimit+"个月"+"</li>"
+				}
+				$("#ser").html(listr);
+			}
+		}
+	});
+});
+
+function mot(){
+	
+	var pageContext = $("#PageContext").val();
+	var month=$("#cur").val();
+	months(month);
+};
+
+function mot1(){
+	
+	var pageContext = $("#PageContext").val();
+	var month=$("#cur1").val();
+	months(month);
+};
+
+function mot2(){
+	
+	var pageContext = $("#PageContext").val();
+	var month=$("#cur2").val();
+	months(month);
+};
+function mot3(){
+	
+	var pageContext = $("#PageContext").val();
+	var month=$("#cur3").val();
+	months(month);
+};
+
+
+function months(month){
+	var pageContext = $("#PageContext").val();
+	$(function (){
+		$.ajax({
+			url:pageContext+'/test/record',
+			contentType : 'application/json;charset=utf-8',
+			type:'GET',
+			data:{"month":month},
+			dataType:'json',
+			error:function(data){
+				alert("数据加载失败，请稍后再试！")
+			},
+			success:function(data){
+				if(data=="nodata"){
+					alert("无合适的优选智能标！")
+				}else{
+					listr="";
+					for(var i=0;i<data.length;i++){
+						listr+="<li class=\"tar\" style=\"width:20%;\">"+data[i].bTName+"+"+data[i].bProjectCode+"</li>"+
+						"<li class=\"tar\" style=\"width:10%;\">"+data[i].lDate+"</li>"+
+						"<li class=\"tar\" style=\"width:10%;\">"+data[i].bBearingDate+"</li>"+
+						"<li class=\"tar\" style=\"width:10%;\">"+data[i].lendMoney.toFixed(2)+"</li>"+
+						"<li class=\"tar\" style=\"width:10%;\">"+data[i].expected.toFixed(2)+"</li>"+
+						"<li class=\"tar\" style=\"width:10%;\">"+data[i].bRate+"%"+"</li>"+
+						"<li class=\"tar\" style=\"width:10%;\">"+data[i].bTimelimit+"个月"+"</li>"
+					}
+					$("#ser").html(listr);
+				}
+			}
+		});
+	});
+	
+	
+	
+	
+	
+	
+	/*$.ajax({
+		url:pageContext+'/test/management',
+		contentType : 'application/json;charset=utf-8',
+		type:'GET',
+		data:{"month":month},
+		dataType:'json',
+		error:function(data){
+			alert("数据加载失败，请稍后再试！")
+		},
+		success:function(data){
+			if(data=="nodata"){
+				alert("无合适的优选智能标！")
+			}else{
+				listr="";
+				for(var i=0;i<data.length;i++){
+					listr+="<li class=\"tal\" style=\"box-sizing:border-box;padding-left:2%;+width:17%;\">"+data[i].fDate+"</li>"+
+					"<li class=\"tar\" style=\"width:17%;\">"+data[i].oTypeName+"</li>"+
+					"<li class=\"tar\" style=\"width:17%;\">"+data[i].fTranAmount+"</li>"+
+					"<li class=\"tar\" style=\"width:25%;\">"+data[i].fAfterTranAmount+"</li>"+
+					"<li class=\"detail tar\" style=\"width: 14%;box-sizing:border-box;padding-right:1%;+width:10%;\">"+data[i].fStatus+"</li>"
+					
+				}
+				$("#ces").html(listr);
+			}
+		}
+	});*/
+	
+}
+
+
+
+

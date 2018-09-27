@@ -1,0 +1,74 @@
+package cn.weidai.service.user;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import cn.weidai.dao.user.UserMapper;
+import cn.weidai.pojo.Bank;
+import cn.weidai.pojo.User;
+
+@Service
+public class UserServiceImpl implements UserService {
+	@Resource
+	private UserMapper userMapper;
+	//测试
+	public User getUserTest(int uId) {
+		return userMapper.getUserTest(uId);
+	}
+    // 登录 查询
+	@Override
+	public User logindo(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.logindo(user);
+	}
+	//查询所有用户
+	@Override
+	public User getUserTest1(int uId) {
+				return userMapper.getUserTest1(uId);
+	}
+
+	@Override
+	public int updateUBalanceById(Integer uId, Double uBalance) {
+		// TODO Auto-generated method stub
+		return userMapper.updateUBalanceById(uId, uBalance);
+	}
+
+	/**
+	 * 查询用户是否存在
+	 */
+	public int getUserInfo(User user){
+		return userMapper.getUserInfo(user);
+	}
+
+	/* 
+	 * 查询用户id
+	 */
+	@Override
+	public int getUserCard(User user) {
+		return userMapper.getUserCard(user);
+	}
+
+	/* 
+	 * bank表增加信息
+	 */
+	public int addUserCard(Bank bank) {
+		// TODO Auto-generated method stub
+		return userMapper.addUserCard(bank);
+	}
+
+	
+	/**
+	 * ajax查询身份证是否被占用
+	 */
+	public int selectUserId(User user){
+		return userMapper.selectUserId(user);
+	}
+	/* (non-Javadoc)
+	 * @see cn.weidai.service.user.UserService#addUserMonney(cn.weidai.pojo.User)
+	 */
+	public int addUserMonney(User user) {
+		
+		return userMapper.addUserMonney(user);
+	}
+}

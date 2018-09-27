@@ -1,0 +1,76 @@
+package cn.weidai.dao.user;
+
+
+import org.apache.ibatis.annotations.Param;
+
+
+import cn.weidai.pojo.Bank;
+
+import cn.weidai.pojo.User;
+
+public interface UserMapper {
+	/**
+	 * 测试
+	 * @param uId
+	 * @return
+	 */
+	public User getUserTest(int uId);
+
+    /**
+     * 登陆
+     */
+
+   public User logindo(User user);
+	
+	/**
+	 * 查询用户
+	 * 
+	 * 
+	 * */
+	public User getUserTest1(int uId);
+
+	/**
+	 * 查询用户姓名和身份证号 返回int 如果查到就是返回1 没查到就是0
+	 * @param user
+	 * @return
+	 */
+	public int getUserInfo(User user);
+	/**
+	 * 查询用户id
+	 * @param user
+	 * @return
+	 */
+	public int getUserCard(User user);
+	/**
+	 * 增加用户信息到bank表里
+	 */
+	public int addUserCard(Bank bank);
+	/**
+	 * ajax查询身份证是否被占用
+	 */
+	public int selectUserId(User user);
+	
+	
+	/**
+	 * 根据用户Id修改用户信息
+	 * @param user
+	 * @return
+	 */
+	public int modifUserById(User user);
+	
+	/**
+	 * 根据用户id增加用户金额
+	 */
+	public int addUserMonney(User user);
+
+
+	
+	 /*
+	   * 点击优选智投购买按钮，该标的剩余可投金额减少相应数额
+	   * 何小平
+	   */
+	
+	public int updateUBalanceById(@Param("uId")Integer uId,@Param("uBalance")Double uBalance);
+
+
+}

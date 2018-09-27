@@ -1,0 +1,141 @@
+/**
+ * center normal style.
+ */
+body, p, div, h1, h2, h3, h4, h5, ul, li, dl, dt, dd, img, span, table, tr, td, th, hr, form, ol, tt, iframe, header, article, footer, tt {
+    margin: 0;
+    padding: 0; }
+
+h3 {
+    font-weight: normal; }
+
+ul, dl {
+    list-style: none; }
+
+a {
+    color: #555;
+    text-decoration: none;
+    outline: 0; }
+
+a.blue {
+    color: #3db1fa; }
+
+.clearfix {
+    zoom: 1;
+    display: block; }
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+
+.visible {
+    visibility: visible; }
+
+.unvisible {
+    visibility: hidden; }
+
+.tc {
+    text-align: center; }
+
+.tl {
+    text-align: left; }
+
+.mt10 {
+    margin-top: 10px; }
+
+/******font*******/
+.fz12 {
+    font-size: 12px; }
+
+.fz14 {
+    font-size: 14px; }
+
+/*****font-face*****/
+@font-face {
+    font-family: DIN-Medium;
+    src: url("../fonts/DINPro-Medium.otf"); }
+.DinFont {
+    font-family: DIN-Medium,sans-serif; }
+
+/******button******/
+.center_btn_a, .center_btn_b {
+    font-size: 14px;
+    background-color: #36adf7;
+    border-radius: 5px;
+    color: #ffffff;
+    border: none;
+    cursor: pointer; }
+
+.center_btn_a:hover, .center_btn_b:hover {
+    background-color: #25a7f7; }
+
+.center_btn_a:active, .center_btn_b:active {
+    background-color: #0c9df7; }
+
+.center_btn_a {
+    width: 250px;
+    height: 40px;
+    line-height: 40px; }
+
+.center_btn_b {
+    width: 160px;
+    height: 30px;
+    line-height: 40px; }
+
+/******line******/
+.normal_border {
+    border-bottom: 1px solid #eeeeee; }
+
+/*******fontColor********/
+.grayLightColor {
+    color: #cccccc; }
+
+.grayDarkColor {
+    color: #9e9e9e; }
+
+.coffeeColor {
+    color: #ca7456; }
+
+.blueColor {
+    color: #36adf7; }
+
+.blackColor {
+    color: #212121; }
+
+.orangeColor {
+    color: #ff5722; }
+
+.redColor {
+    color: #f24343; }
+
+.whiteColor {
+    color: #ffffff; }
+
+/******font-face******/
+input::-webkit-input-placeholder {
+    filter:alpha(opacity=1)!important;
+    opacity:1!important;
+    color: #cccccc !important; /* WebKit browsers */
+}
+input:-moz-placeholder {
+    filter:alpha(opacity=1)!important;
+    opacity:1!important;
+    color: #cccccc !important; /* Mozilla Firefox 4 to 18 */
+}
+input::-moz-placeholder {
+    filter:alpha(opacity=1)!important;
+    opacity:1!important;
+    color: #cccccc !important; /* Mozilla Firefox 19+ */
+}
+input:-ms-input-placeholder {
+    filter:alpha(opacity=1)!important;
+    opacity:1!important;
+    color: #cccccc !important; /* Internet Explorer 10+ */
+}
+input:-ms-input-placeholder {
+    filter:alpha(opacity=1)!important;
+    opacity:1!important;
+    color: #cccccc !important; /* Internet Explorer 10+ */
+}

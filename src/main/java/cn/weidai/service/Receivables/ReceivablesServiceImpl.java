@@ -1,0 +1,40 @@
+package cn.weidai.service.Receivables;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+
+import cn.weidai.dao.lendRecord.LendRecordMapper;
+import cn.weidai.dao.receivables.ReceivablesMapper;
+import cn.weidai.pojo.LendRecord;
+import cn.weidai.pojo.Receivables;
+
+@Service
+public class ReceivablesServiceImpl implements ReceivablesService {
+	@Resource
+	private ReceivablesMapper receivablesMapper;
+
+	@Override
+	public int addReceivables(Receivables receivables) {
+		// TODO Auto-generated method stub
+		return receivablesMapper.addReceivables(receivables);
+	}
+
+	/*@Override
+	public List<Receivables> getReceivablesList(Receivables receivables) {
+	
+		return receivablesMapper.getReceivablesList(receivables);
+	}*/
+
+	@Override
+	public int insertReceivables(List<Receivables> receivableslist) {
+		// TODO Auto-generated method stub
+		return receivablesMapper.insertReceivables(receivableslist);
+	}
+	
+	
+	
+}

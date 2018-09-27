@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.transferBid.TransferBidMapper">
+	<resultMap type="TransferBid" id="tbid">
+		<id property="tId" column="tId" />
+		<result property="bTid" column="bTid" />
+		<result property="bId" column="bId" />
+		<result property="lid" column="lid"/>
+		<result property="bRate" column="bRate" />
+		<result property="bRemainTimelimit" column="bRemainTimelimit" />
+		<result property="tCapital" column="tCapital" />
+		<result property="tTransferPrice" column="tTransferPrice" />
+		<result property="tReTraPrice" column="tReTraPrice" />
+		<result property="tRemittance" column="tRemittance" />
+		<result property="tFull" column="tFull" />
+	</resultMap>
+	<resultMap type="TransferBid" id="tBid1" extends="tbid">
+		<association property="bid" javaType="bid">
+			<result property="bProjectCode" column="bProjectCode" />
+			<result property="bTimelimit" column="bTimelimit" />
+			<result property="bBearingDate" column="bBearingDate" />
+		</association>
+	</resultMap>
+	<resultMap type="TransferBid" id="tBid2" extends="tbid">
+		<association property="bid" javaType="bid">
+			<id property="bId" column="bId" />
+			<result property="bProjectCode" column="bProjectCode" />
+			<result property="uId" column="uId"/>
+			<result property="bRate" column="b_bRate" />
+			<result property="bTimelimit" column="bTimelimit" />
+			<result property="bRepayment" column="bRepayment" />
+			<result property="bBearingDate" column="bBearingDate" />
+		</association>
+	</resultMap>
+	<select id="getTBidList" resultMap="tBid1" parameterType="TransferBid">
+		select * from transferBid t,bid b where b.bTid=2 and t.bid=b.bid
+		<if test="bRemainTimelimit != null">
+			<choose>
+				<when test="bRemainTimelimit==6">and
+					(bTimelimit+TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)-1)&lt;6 </when>
+				<when test="bRemainTimelimit==612"> and
+					(bTimelimit+TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)-1)&gt;=6 and
+					(bTimelimit-TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)) &lt;= 12
+				</when>
+				<when test="bRemainTimelimit==12"> and
+					(bTimelimit+TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)-1)&gt; 12
+				</when>
+			</choose>
+		</if>
+		<choose>
+			<when test="sortName!=null and sortType!=null"> order by ${sortName} ${sortType},bBearingDate
+				${sortType}</when>
+			<otherwise>order by t.bRate desc </otherwise>
+		</choose>
+		<choose>
+			<when test="starNum !=null and pageSize!=null">limit #{starNum},#{pageSize}</when>
+			<otherwise>limit 0,#{pageSize}</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getTBidTotalCount" resultType="int" parameterType="TransferBid">
+		select count(1) from transferBid t,bid b where b.bTid=2 and
+		t.bid=b.bid
+		<if test="bRemainTimelimit != null">
+			<choose>
+				<when test="bRemainTimelimit==6"> and
+					(bTimelimit+TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)-1)&lt;6 </when>
+				<when test="bRemainTimelimit==612"> and
+					(bTimelimit+TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)-1)&gt;=6 and
+					(bTimelimit-TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)) &lt;= 12
+				</when>
+				<when test="bRemainTimelimit==12"> and
+					(bTimelimit+TIMESTAMPDIFF(MONTH,NOW(),bBearingDate)-1)&gt; 12
+				</when>
+			</choose>
+		</if>
+		<choose>
+			<when test="sortName!=null and sortType!=null"> order by #{sortName} #{sortType}</when>
+			<otherwise>order by b.bRate desc </otherwise>
+		</choose>
+	</select>
+	<select id="getTBidListById" resultMap="tBid2" parameterType="int">
+		select *,b.bRate as b_bRate from transferBid t,bid b where b.bTid=2 and t.bid=b.bid and t.tId=#{tId}
+	</select>
+	
+	<update id="modifTraById"  parameterType="transferBid">
+	update transferBid 
+	<set>
+		<if test="bTid!=null"> bTid=#{bTid}, </if>	
+		<if test="uId!=null"> uId=#{uId}, </if>
+		<if test=" bId!=null">  bId=#{bId}, </if>
+		<if test="bRate!=null"> bRate=#{bRate}, </if>
+		<if test="bRemainTimelimit!=null"> bRemainTimelimit=#{bRemainTimelimit}, </if>
+		<if test="tCapital!=null"> tCapital=#{tCapital}, </if>
+		<if test="tTransferPrice!=null"> tTransferPrice=#{tTransferPrice}, </if>
+		<if test="tReTraPrice!=null"> tReTraPrice=#{tReTraPrice}, </if>
+		<if test="tRemittance!=null"> tRemittance=#{tRemittance}, </if>
+		<if test="tFull!=null"> tFull=#{tFull}, </if>
+	</set>
+	where tId=#{tId}
+	</update>
+	<insert id="addTBid" parameterType="transferBid">
+	insert into transferBid (bTid,uId,bId,lid,bRate,bRemainTimelimit,tCapital,tTransferPrice,tReTraPrice,tDate,tRemittance,tFull)
+	value
+	(#{bTid},#{uId},#{bId},#{lid},#{bRate},#{bRemainTimelimit},#{tCapital},#{tTransferPrice},#{tReTraPrice},#{tDate},#{tRemittance},#{tFull})
+	</insert>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.borrower.BorrowerMapper">
+	<update id="modifBorrowerById" parameterType="borrower">
+	update borrower 
+	<set>
+		<if test="boName!=null"> boName=#{boName},</if>
+		<if test="boGender!=null"> boGender=#{boGender},</if>
+		<if test="boAge!=null"> boAge=#{boAge},</if>
+		<if test="boPhone!=null"> boPhone=#{boPhone},</if>
+		<if test="boPassword!=null"> boPassword=#{boPassword},</if>
+		<if test="boDCard!=null"> boDCard=#{boDCard},</if>
+		<if test="boCredit!=null"> boCredit=#{boCredit},</if>
+		<if test="boMarriage!=null"> boMarriage=#{boMarriage},</if>
+		<if test="boRegdate!=null"> boRegdate=#{boRegdate},</if>
+		<if test="boNativePlace!=null"> boNativePlace=#{boNativePlace}, </if>
+		<if test="boMainProperty!=null"> boMainProperty=#{boMainProperty}, </if>
+		<if test="boProfession!=null"> boProfession=#{boProfession},</if>
+		<if test="boJobNature!=null"> boJobNature=#{boJobNature},</if>
+		<if test="boIncome!=null"> boIncome=#{boIncome},</if>
+		<if test="boDebt!=null"> boDebt=#{boDebt},</if>
+		<if test="boBorrowPurpose!=null"> boBorrowPurpose=#{boBorrowPurpose},</if>
+		<if test="boPayment!=null"> boPayment=#{boPayment},</if>
+		<if test="boBalance!=null"> boBalance=#{boBalance},</if>
+	</set>
+	where boId=#{boId}
+	</update>
+<<<<<<< .mine
+	
+	<update id="modifyBorrowerByzhitoubId">
+	update borrower
+	<set>
+	<if test="boBalance!=null"> boBalance=#{boBalance},</if>	
+	</set>	
+	where boId in(select boId from bid where bId=#{bId})
+	</update>
+	
+	
+	
+	
+=======
+	<select id="getBorrowerById" resultType="borrower" parameterType="int">
+	select * from Borrower where boId=#{boId}
+	</select>
+>>>>>>> .r81
+</mapper>

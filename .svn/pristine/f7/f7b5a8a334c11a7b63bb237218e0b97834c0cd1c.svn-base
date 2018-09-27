@@ -1,0 +1,14 @@
+/**
+ * Created by panunlin on 2016/8/29 0029.
+ */
+
+var centerNavSetting = {
+    "iconfont": [],
+    "icon":["&#xe60e;","&#xe648;","&#xe607;","&#xe608;","&#xe60c;","&#xe649;","&#xe611;","&#xe601;","&#xe647;","&#xe60b;"/*,"&#xe60b;"*/,"&#xe60a;"],
+    "name": ["账户总览", "资金管理", "出借记录", "收款明细", "银行卡", "债权转让", "自动投标", "个人资料", "我的红包","邀请有礼"/*, "邀请奖励"*/, "消息管理"],
+    "href": ["/account/accountInfo", "/account/assets/accountFlow", "/account/tender/tenderDetailAll", "/account/receivables/receivablesDetail",
+        "/account/bank", "/account/debtRight/canTransfer", "/account/tender/autoTenderIndex", "/account/personal/safety", "/account/addRateRedPacket","/goldFinancialPlannerIndex/entry"/*, "/account/myInvitation"*/, "/account/myMessage"
+        ]
+};
+
+// module.exports = action;

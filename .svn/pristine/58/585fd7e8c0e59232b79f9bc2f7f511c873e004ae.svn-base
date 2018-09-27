@@ -1,0 +1,24 @@
+package cn.weidai.service.lendRecord;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+
+import cn.weidai.dao.lendRecord.LendRecordMapper;
+import cn.weidai.pojo.LendRecord;
+
+@Service
+public class LendRecordServiceImpl implements LendRecordService {
+	@Resource
+	private LendRecordMapper lendRecordMapper;
+	/* 根据债券状态和用户id查询出借记录
+	 * (non-Javadoc)
+	 * @see cn.weidai.service.lendRecord.LendRecordService#getLendRecordBylStatus(java.lang.String, java.lang.Integer)
+	 */
+	public List<LendRecord> getLendRecordBylStatus(String lStatus,Integer uId) {
+		return lendRecordMapper.getLendRecordBylStatus(lStatus, uId);
+	}
+}

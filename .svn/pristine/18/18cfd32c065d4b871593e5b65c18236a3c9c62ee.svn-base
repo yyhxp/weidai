@@ -1,0 +1,678 @@
+/**
+ * 更新与2017、1.12
+ * by candy
+ */
+$(function () {
+    mnav.activity(9);
+    /**
+     * [myInitTime 自定义时间格式化函数]
+     * @param  {[type]} data      [对象数组]
+     * @param  {[type]} startName [时间属性名]
+     * @param  {[type]} endName   [时间属性名]
+     */
+    function myInitTime(data, startName, endName, fn) {
+        /*if (toString.call(data) !== "[object Array]") {
+            return false;
+        }*/
+        if (data.length < 0) {
+            return false;
+        }
+
+        for (var i = 0; i < data.length; i++) {
+
+            if (typeof data[i][startName] !== "undefined") {
+                data[i]["startTime"] = toTime(data[i][startName]);
+            }
+
+            if (typeof fn === "function") {
+                fn(data[i]);
+            }
+
+            if (typeof data[i][endName] !== "undefined") {
+                data[i]["endTime"] = toTime(data[i][endName]);
+            }
+
+        }
+    }
+
+    //将时间戳转换成日日期格式
+    function toTime(timeString) {
+        var endTime = new Date(timeString);
+        var hours = endTime.getHours(),
+            minutes = endTime.getMinutes(),
+            seconds = endTime.getSeconds();
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        var endTimeVal = [endTime.getFullYear(), "-",
+        endTime.getMonth() + 1, "-",
+        endTime.getDate(), " ",
+            hours, ":",
+            minutes, ":",
+            seconds
+        ].join("");
+        return endTimeVal;
+    }
+
+    //获取剩余天数，返回值为number类型
+    function getSurplusDays(myTime) {
+
+        if (typeof myTime !== "number" && typeof myTime !== "string") {
+            // console.log("参数不对，必须是字符串或是数值类型");
+            return;
+        }
+        var currDate = new Date();
+        var pastDueTime = new Date(myTime);
+
+        var onday = (pastDueTime.getTime() - currDate.getTime()) / (1000 * 60 * 60 * 24);
+        onday = parseInt(onday) + 1;
+        return "剩余" + onday + "天过期";
+        // returns onday;
+    }
+
+    //转换标的
+    /**
+     * 
+     * function typeOfBid(productType) {
+        var productTypes = productType.split(",");
+        var types = [];
+        for (var i = 0, len = productTypes.length; i < len; i++) {
+            switch (productTypes[i]) {
+                case "0":
+                    types.push("全品类");
+                    break;
+                case "1":
+                    types.push("抵押");
+                    break;
+                case "2":
+                    types.push("信用");
+                    break;
+                case "3":
+                    types.push("秒");
+                    break;
+                case "4":
+                    types.push("体验");
+                    break;
+                case "5":
+                    types.push("推荐");
+                    break;
+                case "6":
+                    types.push("车商贷");
+                    break;
+                case "7":
+                    types.push("房贷");
+                    break;
+            }
+        }
+        return types.join(",");
+    }
+     */
+
+
+    var goAjaxObj = {
+        url: "",
+        type: 'GET',
+        success: function (source) {
+
+        },
+        error: function (err) {
+
+        },
+        data: {
+
+        }
+    };
+
+
+
+    //请求总页数函数
+    function getTotalPage() {
+        goAjaxObj.url = window.action.rootPath + window.action.interface.couponSummaryCount;
+        goAjaxObj.success = function (source) {
+            pecketObj.keyong.totalCount = source.data.unUsedCount;
+            pecketObj.yiyong.totalCount = source.data.usedCount;
+            pecketObj.guoqi.totalCount = source.data.pastDueCount;
+            pecketObj.dongjie.totalCount = source.data.freezeCount;
+            pecketObj.keyong.totalPage = (source.data.unUsedCount % 10) > 0 ? parseInt(source.data.unUsedCount / 10) + 1 : parseInt(source.data.unUsedCount / 10);
+            pecketObj.yiyong.totalPage = (source.data.usedCount % 10) > 0 ? parseInt(source.data.usedCount / 10) + 1 : parseInt(source.data.usedCount / 10);
+            pecketObj.guoqi.totalPage = (source.data.pastDueCount % 10) > 0 ? parseInt(source.data.pastDueCount / 10) + 1 : parseInt(source.data.pastDueCount / 10);
+            pecketObj.dongjie.totalPage = (source.data.freezeCount % 10) > 0 ? parseInt(source.data.freezeCount / 10) + 1 : parseInt(source.data.freezeCount / 10);
+            $("#keYong").html("可用红包(" + source.data.unUsedCount + ")");
+            $("#yiYong").html("已用红包(" + source.data.usedCount + ")");
+            $("#guoQi").html("过期红包(" + source.data.pastDueCount + ")");
+            $("#dongJie").html("冻结中(" + source.data.freezeCount + ")");
+            goAjaxObj = {
+                url: window.action.rootPath + window.action.interface.interestRateCouponlist,
+                type: 'GET',
+                success: function (source) {
+                    packetActive = pecketObj.keyong;
+                    creatPageNav(packetActive);
+                    var myData = source.data.data;
+                    if (pecketObj.keyong.totalCount == 0) {
+                        $('.empty').show();
+                    } else {
+                        $('.empty').hide();
+                    }
+                    myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                        var myTime = getSurplusDays(mydata["pastDueTime"]);
+                        mydata["surplusTime"] = myTime;
+                        // mydata["myProductType"] = typeOfBid(mydata["productType"]);
+                        // mydata["myProductType"] = formattedLimitCondition;
+                        mydata["buttonClass"] = "unused";
+                        mydata["buttonText"] = "立即使用";
+                    });
+                    var myObj = {
+                        "array": myData
+                    };
+                    var template = doT.template($('#tabBox-tpl').text());
+                    $("#keYongBox").html(template(myObj));
+
+                },
+                error: function (err) {
+
+                },
+                data: {
+                    page: 1,
+                    rows: 10,
+                    status: '2'
+                }
+            };
+            //初始化加载数据
+            goAjax(goAjaxObj);
+        }
+        goAjax(goAjaxObj);
+    }
+
+    getTotalPage();
+    //保存三种红包种类的对象
+    var pecketObj = {
+        keyong: {
+            page: 1,
+            totalPage: 1,
+            ajax: function (page) {
+                goAjaxObj.url = window.action.rootPath + window.action.interface.interestRateCouponlist;
+                goAjaxObj.data = { page: page, status: 2 };
+                goAjaxObj.success = function (source) {
+                    var myData = source.data.data;
+
+                    //数据为空显示图片
+
+                    myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                        var myTime = getSurplusDays(mydata["pastDueTime"]);
+                        mydata["surplusTime"] = myTime;
+                        // mydata["myProductType"] = formattedLimitCondition;
+                        mydata["buttonClass"] = "unused";
+                        mydata["buttonText"] = "立即使用";
+                    });
+                    var myObj = {
+                        "array": myData
+                    };
+                    var template = doT.template($('#tabBox-tpl').text());
+                    $("#keYongBox").html(template(myObj));
+                }
+                goAjax(goAjaxObj);
+            }
+        },
+        yiyong: {
+            page: 1,
+            totalPage: 1,
+            ajax: function (page) {
+                goAjaxObj.url = window.action.rootPath + window.action.interface.interestRateCouponlist;
+                goAjaxObj.data = { page: page, status: 1 };
+                goAjaxObj.success = function (source) {
+                    var myData = source.data.data;
+
+                    //数据为空显示图片
+                    //total = myData.totalCount;
+
+                    myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                        // var myTime = getSurplusDays(mydata["pastDueTime"]);
+                        mydata["surplusTime"] = "";
+                        // mydata["myProductType"] = formattedLimitCondition
+                        // mydata["myProductType"] = typeOfBid(mydata["productType"]);
+                        mydata["buttonClass"] = "used";
+                        mydata["buttonText"] = "明细";
+                        mydata["memberGradeLimit"] = "";
+                    });
+
+                    var myObj = {
+                        "array": myData
+                    };
+                    var template = doT.template($('#tabBox-tpl').text());
+                    $("#yiYongBox").html(template(myObj));
+                }
+                goAjax(goAjaxObj);
+            }
+        },
+        guoqi: {
+            page: 1,
+            totalPage: 1,
+            total: 0,
+            ajax: function (page) {
+                goAjaxObj.url = window.action.rootPath + window.action.interface.interestRateCouponlist;
+                goAjaxObj.data = { page: page, status: 0 };
+                goAjaxObj.success = function (source) {
+                    var myData = source.data.data;
+                    //数据为空显示图片
+
+                    myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                        mydata["surplusTime"] = "";
+                       // mydata["myProductType"] = formattedLimitCondition;
+                        mydata["buttonClass"] = "used";
+                        mydata["buttonText"] = "已过期";
+                        mydata["memberGradeLimit"] = "";
+
+                    });
+
+                    var myObj = {
+                        "array": myData
+                    };
+                    var template = doT.template($('#tabBox-tpl').text());
+                    $("#guoQiBox").html(template(myObj));
+                }
+                goAjax(goAjaxObj);
+            }
+        },
+        dongjie: {
+            page: 1,
+            totalPage: 1,
+            total: 0,
+            ajax: function (page) {
+                goAjaxObj.url = window.action.rootPath + window.action.interface.interestRateCouponlist;
+                goAjaxObj.data = { page: page, status: 3 };
+                goAjaxObj.success = function (source) {
+
+                    //数据为空显示图片
+                    var myData = source.data.data;
+                    myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                        mydata["surplusTime"] = "";
+                        // mydata["myProductType"] = formattedLimitCondition;
+                        mydata["buttonClass"] = "used";
+                        mydata["buttonText"] = "已使用";
+                        mydata["memberGradeLimit"] = "";
+
+                    });
+
+                    var myObj = {
+                        "array": myData
+                    };
+                    var template = doT.template($('#tabBox-tpl').text());
+                    $("#dongJieBox").html(template(myObj));
+                }
+                goAjax(goAjaxObj);
+            }
+        }
+    };
+
+    //初始化分页的方法
+    function creatPageNav(obj) {
+        $(".pageList").html("");
+        $.creatPageNav({
+            selector: '.pageList',
+            page: 1,
+            totalpage: obj.totalPage,
+            clickCallback: obj.ajax
+        })
+    }
+
+    //保存当前红包种类的对象
+    var packetActive = null;
+    var packetRed = null;
+    /***********
+    加息红包tab切换效果
+    */
+
+    $('.redTitle2 ul li').find('a').click(function (event) {
+
+        $(this).parent('li').addClass('cur').siblings().removeClass('cur');
+        $('.tabBox').eq($(this).parent('li').index()).show().siblings().hide();
+        // console.log(event.target.id)
+        if (event.target.id === "keYong") {
+            if (pecketObj.keyong.totalCount == 0) {
+
+                $('.empty').show();
+            } else {
+                $('.empty').hide();
+            }
+            packetActive = pecketObj.keyong;
+
+            creatPageNav(packetActive);
+            goAjaxObj.data.page = '1';
+            goAjaxObj.data.status = '2';
+
+            goAjaxObj.success = function (source) {
+
+                var myData = source.data.data;
+
+                myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                    var myTime = getSurplusDays(mydata["pastDueTime"]);
+                    mydata["surplusTime"] = myTime;
+                    // mydata["myProductType"] = formattedLimitCondition;
+                    mydata["buttonClass"] = "unused";
+                    mydata["buttonText"] = "立即使用";
+                });
+                var myObj = {
+                    "array": myData
+                };
+                var template = doT.template($('#tabBox-tpl').text());
+                $("#keYongBox").html(template(myObj));
+                //修改tab切换按钮文字
+
+            }
+
+
+        } else if (event.target.id === "yiYong") {
+            if (pecketObj.yiyong.totalCount == 0) {
+                $('.empty').show();
+            } else {
+                $('.empty').hide();
+            }
+            packetActive = pecketObj.yiyong;
+
+            creatPageNav(packetActive);
+            goAjaxObj.data.page = '1';
+            goAjaxObj.data.status = '1';
+
+
+            goAjaxObj.success = function (source) {
+
+                var myData = source.data.data;
+
+                myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                    // var myTime = getSurplusDays(mydata["pastDueTime"]);
+                    mydata["surplusTime"] = "";
+                    // mydata["myProductType"] = formattedLimitCondition
+                    mydata["buttonClass"] = "used";
+                    mydata["buttonText"] = "明细";
+                    mydata["memberGradeLimit"] = "";
+
+                });
+
+                var myObj = {
+                    "array": myData
+                };
+                var template = doT.template($('#tabBox-tpl').text());
+                $("#yiYongBox").html(template(myObj));
+            }
+
+        } else if (event.target.id === "guoQi") {
+
+            if (pecketObj.guoqi.totalCount == 0) {
+                $('.empty').show();
+                // console.log(2)
+            } else {
+                // console.log(1)
+                $('.empty').hide();
+            }
+            packetActive = pecketObj.guoqi;
+
+            creatPageNav(packetActive);
+            goAjaxObj.data.page = '1';
+            goAjaxObj.data.status = '0';
+
+            goAjaxObj.success = function (source) {
+
+                var myData = source.data.data;
+
+                myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                    //var myTime = getSurplusDays(mydata["pastDueTime"]);
+                    mydata["surplusTime"] = "";
+                    // mydata["myProductType"] = formattedLimitCondition;
+                    mydata["buttonClass"] = "used";
+                    mydata["buttonText"] = "已过期";
+                    mydata["memberGradeLimit"] = "";
+
+                });
+
+                var myObj = {
+                    "array": myData
+                };
+                var template = doT.template($('#tabBox-tpl').text());
+                $("#guoQiBox").html(template(myObj));
+                //修改tab切换按钮文字
+            }
+
+        } else if (event.target.id === "dongJie") {
+
+            if (pecketObj.dongjie.totalCount == 0) {
+                $('.empty').show();
+                // console.log(2)
+            } else {
+                // console.log(1)
+                $('.empty').hide();
+            }
+            packetActive = pecketObj.dongjie;
+
+            creatPageNav(packetActive);
+            goAjaxObj.data.page = '1';
+            goAjaxObj.data.status = '3';
+
+            goAjaxObj.success = function (source) {
+
+                var myData = source.data.data;
+
+                myInitTime(myData, "getTime", "pastDueTime", function (mydata) {
+                    //var myTime = getSurplusDays(mydata["pastDueTime"]);
+                    mydata["surplusTime"] = "";
+                    // mydata["myProductType"] = formattedLimitCondition;
+                    mydata["buttonClass"] = "used";
+                    mydata["buttonText"] = "已使用";
+                    mydata["memberGradeLimit"] = "";
+
+                });
+
+                var myObj = {
+                    "array": myData
+                };
+                var template = doT.template($('#tabBox-tpl').text());
+                $("#dongJieBox").html(template(myObj));
+                //修改tab切换按钮文字
+            }
+
+        }
+        goAjaxObj.url = window.action.rootPath + window.action.interface.interestRateCouponlist;
+        goAjax(goAjaxObj);
+
+    });
+
+    /***********
+    点击红包明细判断标的种类
+    bidType 为0的时候是散标，不为0的时候为优选计划标
+    */
+    $("#yiYongBox").click(function (event) {
+
+        if ($(event.target).hasClass("used")) {
+            goAjaxObj.url = window.action.rootPath + window.action.interface.interestRateCouponRecovery;
+
+            var couponId = $(event.target).attr("data-id");
+
+            goAjaxObj.data.couponId = couponId;
+
+            goAjaxObj.success = function (source) {
+
+                var myData = source.data;
+                if (myData.ap) {
+                    $("#better").fadeIn(function () { $("#better").attr('show', 'on') });
+                    var betterCont = "<div class='shadow'></div><div class='alert' id='better-alerts'>" +
+                        "<div class='content'>" +
+                        "<div class='title font-black'><i class='closebtn fr'></i></div>" +
+                        "<div class='data-show'>" +
+                        "<h1>" + myData.title + "</h1>" +
+                        "<dl><dd class='clearfix'>" +
+                        "<span class='fl'>加息额度</span>" +
+                        "<span class='fr'>" + Number(myData.couponRate).toFixed(2) + "%</span></dd>" +
+                        "<dd class='clearfix'><span class='fl'>本金（元）</span>" +
+                        "<span class='fr'>" + myData.investPrincipal + "</span></dd></dl>" +
+                        "<div class='clearfix  border-top table-div'><span class='tal'>应收加息（元）</span><span class='tac'>已收加息（元）</span><span class='tar'>剩余待收（元）</span></div>" +
+                        "<div class='clearfix table-div border-bottom'><span class='tal'>" + myData.sumInterest + "</span><span class='tac'>" +
+                        myData.recoveredInterest + "</span><span class='tar'>" + myData.recoveringInterest + "</span></div>";
+                    var forUl = '';
+                    for (var i = 0; i < myData.couponUses.length; i++) {
+                        forUl += "<li class='tal'>" + myData.couponUses[i].title + "<span class='fr blue see-detials' data-bid='" + myData.couponUses[i].bid + "' data-couponId='" + myData.couponUses[i].couponId + "'>查看详情</span></li>"
+                    }
+                    forUl = "<ul>" + forUl + "</ul></div>";
+                    $("#better").html(betterCont + forUl);
+                } else {
+                    $("#spread").fadeIn(function () { $("#spread").attr('show', 'on') });
+                    var spreadCont = "<div class='shadow'></div>" +
+                        "<div class='alert' id='spread-alert'>" +
+                        "<div class='content'>" +
+                        "<div class='title font-black'><i class='closebtn fr'></i></div>" +
+                        "<div class='data-show'>" +
+                        "<h1>" + myData.title + "</h1>" +
+                        "<dl><dd class='clearfix'>" +
+                        "<span class='fl'>加息额度</span>" +
+                        "<span class='fr'>" + Number(myData.couponRate).toFixed(2) + "%</span></dd>" +
+                        "<dd class='clearfix'><span class='fl'>本金（元）</span>" +
+                        "<span class='fr'>" + myData.investPrincipal + "</span></dd></dl>" +
+                        "<div class='clearfix  border-top table-div'><span class='tal'>应收加息（元）</span><span class='tac'>已收加息（元）</span><span class='tar'>剩余待收（元）</span></div>" +
+                        "<div class='clearfix table-div'><span class='tal'>" + myData.sumInterest + "</span><span class='tac'>" +
+                        myData.recoveredInterest + "</span><span class='tar'>" + myData.recoveringInterest + "</span></div>" +
+                        "<div id='overDiv'><table cellpadding = '0' cellspacing = '0'><tr><th>期/总</th><th>待收日期</th><th>待收加息</th><th>状态</th></tr>";
+                    var forTd = '';
+
+                    for (var i = 0; i < myData.recovers.length; i++) {
+                        forTd += "<tr><td>" + myData.recovers[i].couponPeriod + "</td>" + "<td>" + toTime(myData.recovers[i].recoverTime) + "</td>" + "<td>" + myData.recovers[i].interest + "元</td>" + "<td>" + typeArray[myData.recovers[i].status] + "</td></tr>"
+                    }
+                    forTd = forTd + "</table></div>";
+                    var emptyBox = "<div class='empty1 empty' style='display:none'>" +
+                        "<img src='$!CDNTool.replace($!{staticFileUrl2})/img/center/empty2.png' alt=''>" +
+                        "<p class='text'>暂时没有对应红包</p></div>"
+                    $("#spread").html(spreadCont + forTd);
+
+                }
+            };
+            goAjax(goAjaxObj);
+        }
+
+
+    });
+
+    var typeArray = ["未还款", '已还款', '终止', '提前还款']
+
+    /*******
+      动态加载标的还款方法
+    */
+    function LoadBidList(myData, jqSelect) {
+
+        var spreadCont = " <div class='shadow'></div><div class='alert' id='detials-alert'>" +
+            "<div class='content'>" +
+            "<div class='title font-black'><i class='closebtn fr'></i></div>" +
+            "<div class='data-show'>" +
+            "<h1>" + myData.title + "</h1>" +
+            "<dl><dd class='clearfix'>" +
+            "<span class='fl'>加息额度</span>" +
+            "<span class='fr'>" + Number(myData.couponRate).toFixed(2) + "%" + "</span></dd>" +
+            "<dd class='clearfix'><span class='fl'>本金（元）</span>" +
+            "<span class='fr'>" + myData.investPrincipal + "</span></dd></dl>" +
+            "<div class='clearfix  border-top table-div'><span class='tal'>应收加息（元）</span><span class='tac'>已收加息（元）</span><span class='tar'>剩余待收（元）</span></div>" +
+            "<div class='clearfix table-div'><span class='tal'>" + myData.sumInterest + "</span><span class='tac'>" +
+            myData.recoveredInterest + "</span><span class='tar'>" + myData.recoveringInterest + "</span></div>" +
+            "<table cellpadding = '0' cellspacing = '0'><tr><th>期/总</th><th>待收日期</th><th>待收加息</th><th>状态</th></tr>";
+
+        var forTd = '';
+        for (var i = 0; i < myData.recovers.length; i++) {
+            forTd += "<tr><td>" + myData.recovers[i].couponPeriod + "</td>" + "<td>" + toTime(myData.recovers[i].recoverTime) + "</td>" + "<td>" + myData.recovers[i].interest + "元</td>" + "<td>" + typeArray[myData.recovers[i].status] + "</td></tr>"
+        }
+        forTd =  forTd + "</table></div>";
+        jqSelect.html(spreadCont + forTd)
+    }
+
+    /****************
+    查看详情点击出现优选计划查看详情弹框
+    */
+    $(document).on("click", ".see-detials", function (event) {
+        goAjaxObj.url = window.action.rootPath + window.action.interface.bidInterestRateCouponRecovery;
+        var bidId = $(event.target).attr("data-bid");
+        goAjaxObj.data.bid = bidId;
+        goAjaxObj.success = function (source) {
+            var myData = source.data;
+            $('#better-detials').fadeIn(function () {
+                $("#better-detials").attr('data', 'two');
+            })
+            LoadBidList(myData, $('#better-detials'));
+        }
+        goAjax(goAjaxObj);
+
+    });
+
+    $(document).click(function (event) {
+        if ($("#better-detials").attr('data') === 'two' && $('#detials-alert,#detials-alert *:not(.closebtn)').index($(event.target)) == -1) {
+            $("#better-detials").fadeOut(
+                function () {
+                    $("#better-detials").attr('data', 'one')
+                }
+            );
+            $('#better').fadeIn(function () {
+                $("#better").attr('show', 'on');
+            });
+        }
+    });
+
+    /************
+      点击页面其他地方关闭弹框
+      */
+    $(document).click(function (e) {
+        if ($('#better-detials').attr('data') !== "two"
+            && $('#better').attr('show') === "on"
+            && $('#better-alerts,#better-alerts *:not(.closebtn)').index($(e.target)) == -1) {
+            $("#better").fadeOut(function () {
+                $("#better").attr('show', 'off')
+            })
+        } else if ($('#spread').attr('show') === "on" && $('#better-alert,#better-alert *:not(.closebtn)').index($(e.target)) == -1) {
+            $("#spread").fadeOut(function () {
+                $("#spread").attr('show', 'off')
+            })
+        }
+    });
+
+
+});
+
+
+/************
+  ajax封装方法2016.12.22
+*/
+function goAjax(rateObj) {
+    //判断是否引入jquery
+    if (typeof window.$ !== 'function' && typeof window.jQuery !== 'function') {
+        throw new Error("该方法依赖于jQuery!");
+    }
+
+    if (typeof rateObj.url == 'undefined') {
+        throw new Error('缺少url这个属性')
+    }
+
+    if (typeof rateObj.success == 'undefined') {
+        throw new Error('缺少这个函数')
+    }
+
+    if (typeof rateObj.type == "undefined") {
+        throw new Error('不能缺type属性')
+    }
+
+    if (typeof rateObj.dataType == "undefined") {
+        rateObj.dataType = 'json';
+    }
+
+    $.ajax({
+        url: rateObj.url,
+        success: function (data) {
+            rateObj.success(data);
+        },
+        error: function (err) {
+            rateObj.error(err);
+        },
+        dataType: rateObj.dataType,
+        type: rateObj.type,
+        data: rateObj.data
+    });
+
+
+}

@@ -1,0 +1,66 @@
+/**
+ *
+ */
+package cn.weidai.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
+
+/**
+ * 类名称:SMSController1
+ * 类描述:
+ * 创建人:苏俊杰
+ * 创建时间:2018-8-11 下午4:59:39
+ */
+@Controller
+@RequestMapping("/duanxin")
+public class SMSController1 {
+	
+	@RequestMapping(value="/phone",method=RequestMethod.POST)
+	@ResponseBody
+    public Object SMM(@RequestParam("phones")String phones,HttpServletRequest request){
+		String json;
+		SMSController.to=phones;
+    	SMSController.execute();
+    	json=JSON.toJSONString("smsCode()");
+    	return json;
+    }
+	@RequestMapping(value="/uPhone",method=RequestMethod.GET)
+	@ResponseBody
+    public String SMM2(@RequestParam("uPhone")String uPhone,HttpServletRequest request){
+	      
+    	return uPhone;
+    }
+	
+	
+	@RequestMapping(value="/uPhone",method=RequestMethod.POST)
+	@ResponseBody
+    public String SMM1(@RequestParam("uPhone")String uPhone,HttpServletRequest request){
+	      
+		SMSController sms=new SMSController();
+		String json;
+    	sms.to=uPhone;
+    	
+    	SMSController.execute();
+    	json=JSON.toJSONString("smsCode()");
+    	return json;
+    }
+	@RequestMapping(value="/uPhonee",method=RequestMethod.POST)
+	@ResponseBody
+    public String SMM3(@RequestParam("uPhone")String uPhone,HttpServletRequest request){
+	      
+		SMSController sms=new SMSController();
+		String json;
+    	sms.to=uPhone;
+    	json=JSON.toJSONString("smsCode()");
+    	return json;
+    }
+	
+}

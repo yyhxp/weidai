@@ -1,0 +1,436 @@
+package cn.weidai.controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+
+import cn.weidai.dao.settlement.SettlementMapper;
+import cn.weidai.pojo.Base;
+import cn.weidai.pojo.Bid;
+import cn.weidai.pojo.FundRecord;
+import cn.weidai.pojo.LendRecord;
+import cn.weidai.pojo.Receivables;
+import cn.weidai.pojo.Settlement;
+import cn.weidai.pojo.TransferBid;
+import cn.weidai.pojo.User;
+import cn.weidai.service.Receivables.ReceivablesService;
+import cn.weidai.service.bid.BidService;
+import cn.weidai.service.fundRecord.FundRecordService;
+import cn.weidai.service.lendRecord.LendRecordService;
+import cn.weidai.service.settlement.SettlementService;
+import cn.weidai.service.user.UserService;
+import cn.weidai.tools.Constants;
+import cn.weidai.tools.PageSupport;
+import cn.weidai.tools.TimeLag;
+
+@Controller
+@RequestMapping("/bid")
+public class BidController {
+
+	private Logger logger=Logger.getLogger(BidController.class);
+
+	@Resource
+	private  BidService bidServiceImpl;
+
+	@Resource
+	private LendRecordService lendRecordServiceImpl;
+
+	@Resource
+	private UserService userServiceImpl;
+
+	@Resource
+	private ReceivablesService receivablesServiceImpl;
+
+	@Resource
+	private FundRecordService fundRecordServiceImpl;
+
+	@Resource
+	private SettlementService settlementServiceImpl;
+
+	@RequestMapping(value="/zhitou.html",method=RequestMethod.GET)
+	public String zhitou(){	
+		logger.debug("这是zhitou controller======————————————————————————————————————————————");	
+		return "zhitou";
+	}
+
+
+	@RequestMapping(value="/xBid.html",method=RequestMethod.GET)
+	public String xBid(){	
+		logger.debug("这是xBid controller======————————————————————————————————————————————");	
+		return "x-tou";
+	}
+
+
+	@RequestMapping(value="/sanbiao.html",method=RequestMethod.GET)
+	public String sanbiao(){	
+		logger.debug("这是sanbaio controller======————————————————————————————————————————————");	
+		return "sanbiao";
+	}
+
+	/*
+	 * 优选智投信息分页
+	 */
+
+	/*@ResponseBody*/
+	//@RequestMapping(value="/zhitou.html")
+	/*public String getzhitoubid(@RequestParam(value="currentPageIndex",required=false,defaultValue="1")Integer currentPageIndex,Model model){
+		logger.debug("进入getzhitou.html()==========================================1");
+		String json;
+		 int index=-1;
+		 if(currentPageIndex==null){
+			 index=1;
+		 }else{
+			 index=currentPageIndex;
+		 }
+		 Base basePage=new Base();
+		basePage.setPageSize(Constants.pageSize);
+		basePage.setPageIndex(index);
+		int totalCount=bidServiceImpl.getztTotalCount();	
+		int pageSize=basePage.getPageSize();
+	 currentPageIndex=basePage.getPageIndex();
+		PageSupport psp=new PageSupport();
+		psp.setPageSize(Constants.pageSize);
+		psp.setTotalCount(totalCount);
+		int totalPageCount=psp.getTotalPageCount();
+
+		int startNum=(basePage.getPageIndex()-1)*basePage.getPageSize();		
+		logger.debug("进入getzhitou.html()==========================================1");
+
+		 List<Bid>  bidList = bidServiceImpl.getzhitouBid(basePage.getPageSize(),startNum);
+			logger.debug("进入getzhitou.html()==========================================1");
+
+		if(null==bidList||"".equals(bidList)){
+			return "nodata";
+		}
+		json=JSON.toJSONString(bidList);
+		model.addAttribute("totalCount", totalCount);
+		//model.addAttribute("pageSize", pageSize);
+		model.addAttribute("currentPageIndex", currentPageIndex);
+		model.addAttribute("bid", bidList);
+		model.addAttribute("startNum", startNum);
+		model.addAttribute("totalPageCount", totalPageCount);	
+
+		return "zhitou";
+	}*/
+
+	/*
+	 * 返回优选智投的json数据
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getzhitou.json",method=RequestMethod.GET,produces = {"application/json;charset=utf-8"})
+	public Object getzhitou( ){
+		logger.debug("进入getzhitou.json()==========================================");
+
+		String json;
+		List<Bid>  bidList = bidServiceImpl.getzhitouBid(null,null);		
+
+				
+
+		if(null==bidList||"".equals(bidList)){
+			return "nodata";
+		}
+		json=JSON.toJSONString(bidList);		
+		return json;
+	}
+
+
+
+	@ResponseBody
+	@RequestMapping(value="/getzhitou1.json",method=RequestMethod.GET,produces = {"application/json;charset=utf-8"})
+	public Object getzhitou1(){
+		logger.debug("进入getzhitou1()==========================================");
+		String json;
+		List<Bid>  bidList=new ArrayList<Bid>();
+		bidList = bidServiceImpl.getzhitouBid1();
+
+		if(null==bidList||"".equals(bidList)){
+			return "nodata";
+		}
+		json=JSON.toJSONString(bidList);
+		logger.debug(json);
+		return json;
+	}
+
+
+	@ResponseBody
+	@RequestMapping(value="/getzhitou2.json",method=RequestMethod.GET,produces = {"application/json;charset=utf-8"})
+	public Object getzhitou2(){
+		logger.debug("进入getzhitou2()==========================================");
+		String json;
+		List<Bid>  bidList=new ArrayList<Bid>();
+		bidList = bidServiceImpl.getzhitouBid2();
+
+		if(null==bidList||"".equals(bidList)){
+			return "nodata";
+		}
+		json=JSON.toJSONString(bidList);
+		logger.debug(json);
+		return json;
+	}
+
+
+	@ResponseBody
+	@RequestMapping(value="/getzhitou3.json",method=RequestMethod.GET,produces = {"application/json;charset=utf-8"})
+	public Object getzhitou3(){
+		logger.debug("进入getzhitou3()==========================================");
+		String json;
+		List<Bid>  bidList=new ArrayList<Bid>();
+		bidList = bidServiceImpl.getzhitouBid3();
+
+		if(null==bidList||"".equals(bidList)){
+			return "nodata";
+		}
+		json=JSON.toJSONString(bidList);
+		logger.debug(json);
+		return json;
+	}
+
+
+	/*
+	 * 返回购买标的页面
+	 */
+	@RequestMapping(value="/zhitouDetail.html",method=RequestMethod.GET)
+	public String buy(){	
+		logger.debug("这是buy  controller======————————————————————————————————————————————");	
+		return "zhitouDetail";
+	}
+
+	/*
+	 * 返回购买标的详细信息——json类型的数据
+	 */
+
+	@ResponseBody
+	@RequestMapping(value="/getzhitouDetail.json",method=RequestMethod.GET)
+	public Object getzhitouDetail(@RequestParam(value="bId",required=false) Integer bId){
+		logger.debug("进入getzhitouDetail()==========================================");
+		String json;			
+		/*if(null==bId||"".equals(bId)){
+			return "nodata";
+		}*/
+		Bid bid= bidServiceImpl.getBidById(bId);
+
+		logger.debug(bid+"-----------------------------------------");		
+		json=JSON.toJSONString(bid);
+		logger.debug(json);
+		return json;
+	}
+
+
+
+	//购买优选智投标的功能
+	@ResponseBody
+	@RequestMapping(value="/zhitoudetaildo.html",method=RequestMethod.POST)
+	public Object zhitoudetaildo(@RequestParam(value="bId",required=false) String bId,
+			@RequestParam(value="inputmoney",required=false) String inputmoney,
+			@RequestParam(value="uId",required=false) String uId,
+			@RequestParam(value="exinterest",required=false) String exinterest,
+			@RequestParam(value="uBalance",required=false) String uBalance,
+			@RequestParam(value="bTimelimit",required=false) String bTimelimit,
+			@RequestParam(value="bCanBeCastMoney",required=false) String bCanBeCastMoney,
+			@RequestParam(value="bProjectTotolMoney",required=false) String bProjectTotolMoney,
+			@RequestParam(value="lStatus",required=false) String lStatus,
+			HttpSession session			
+			){			
+
+		logger.debug("进入zhitoudetaildo.html==========================================");
+		String json;
+
+
+		//bid剩余可投金额的减少相应数额update方法
+
+		Double _inputmoney=0.00;
+		Double _bCanBeCastMoney=0.00;
+		Double  bCanBeCastMoney1=0.00;
+		Double _uBalance=0.00;
+		Double uBalance1=0.00;
+		Integer _bId=0;
+		Double _exinterest=0.00;
+		Integer _uId=0;
+		Integer _bTimelimit=0;
+		Settlement settlement=new Settlement();
+
+		if(uBalance !=null && uId !=null ){
+			_uId=Integer.valueOf(uId);
+			_uBalance=Double.valueOf(uBalance); 
+		}else{
+			return "unregister";
+		}
+		logger.debug("项目总额："+bProjectTotolMoney);
+		Double boBalance=0.00;
+		if(bProjectTotolMoney !=null){
+
+			boBalance=Double.valueOf(bProjectTotolMoney);
+		}
+
+		if(bCanBeCastMoney !=null && inputmoney !=null &&
+				bId !=null &&_bTimelimit !=null){
+			_inputmoney=Double.valueOf(inputmoney);		
+			_bCanBeCastMoney=Double.valueOf(bCanBeCastMoney);		 				
+			_exinterest=Double.valueOf(exinterest);
+			_bId=Integer.valueOf(bId);
+		}
+
+		//剩余可投金额减少输入的金额
+		bCanBeCastMoney1=_bCanBeCastMoney-_inputmoney;
+		//用户余额减少可投的金额
+		uBalance1=_uBalance-_inputmoney;
+
+		if(_uBalance==0){
+			return "yuebuzu";
+		}
+
+		if(_inputmoney-_uBalance>0 || _inputmoney<500|| _inputmoney>50000){
+			return "exinput";
+		}
+
+		User buyuser=new User();
+		buyuser.setuId(_uId);
+		buyuser.setuBalance(uBalance1);
+
+
+		//用户收款明细增加
+		Receivables receivables=new Receivables();
+		receivables.setbId(_bId);
+		receivables.setPeriods(1);
+		receivables.setlStatus("待收款");
+		receivables.setRDate(null);
+		receivables.settRDate(new Date());
+		receivables.setRInterest(0.00);
+		receivables.setRMoney(0.00);
+		receivables.settRInterest(_exinterest);
+		receivables.settRMoney(_inputmoney);
+
+
+		//资金记录增加
+
+		FundRecord fundRecord=new FundRecord();
+		SimpleDateFormat  formatter= new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss");
+
+		String _fCode=uId+formatter.format(new Date());
+		fundRecord.setfCode(_fCode);
+		fundRecord.setuId(_uId);
+		fundRecord.setoTypeId(2);
+		fundRecord.setfTranAmount(_inputmoney);
+		fundRecord.setfStatus("已交易");
+		fundRecord.setfDate(new Date());
+
+
+		//该用户的借款记录添加一条		 
+		LendRecord lendRecord=new LendRecord();
+		lendRecord.setbTid(2);
+		lendRecord.setuId(_uId);
+		lendRecord.setbId(_bId);
+		lendRecord.setlDate(new Date());
+		lendRecord.setLendMoney(_inputmoney);   //出借金额
+		lendRecord.setlExTotInterest(_exinterest);  //总利息
+
+		/*if(_bCanBeCastMoney==_inputmoney){
+			lendRecord.setlStatus("kz");*/
+
+
+		//获取时间加一年或加一月或加一天
+		/*Date date2 = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date2);//设置起时间		     
+		//增加一天	
+		cal.add(Calendar.DATE, 1);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String startTime = sdf.format(cal.getTime()); 
+
+		try {
+			date2=sdf.parse(TimeLag.subMonth(_bTimelimit, startTime));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}					     			
+		settlement.setsRemittance(date2);*/
+
+
+
+
+		/*}else{
+			lendRecord.setlStatus("nz");			
+		}*/
+
+		boolean flag=false;
+		/*Date date=lendRecord.getlDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String startTime = sdf.format(date); 
+
+		System.out.println("最新时间："+startTime);*/
+
+		LendRecord lendRecord1=lendRecordServiceImpl.selectLidfromLendrecord(_uId, "kz");
+		Integer lid=lendRecord1.getLid();
+		logger.debug("lid"+lid+"__________________________________");
+		Bid bid=bidServiceImpl.getBidById(_bId);
+		Integer boId=bid.getuId();
+
+		settlement.setLid(lid);
+		settlement.setsRemittance(null);
+		settlement.setUid(_uId);
+		settlement.setBoId(boId);
+		settlement.setBid(_bId);
+		settlement.setsCapital(_inputmoney);
+		settlement.setsCapOfMon(_inputmoney);
+		settlement.setsIntOfMon(_exinterest);
+		logger.debug("结算："+bCanBeCastMoney1+"____________________________");
+		
+		try{
+			flag=bidServiceImpl.wd_BuyZhitouBid(_bId, _inputmoney, _uId, uBalance1,
+					_bTimelimit, receivables, fundRecord, 
+					lendRecord, _bCanBeCastMoney,bCanBeCastMoney1,boBalance,settlement);
+
+		}catch (Exception e){
+			e.printStackTrace();
+		}	
+		if(flag){			
+			session.setAttribute(Constants.USER_SESSION,buyuser);			
+			return "success";
+
+		}else{
+			return "failed";
+
+		}
+
+		/*}else if(_bCanBeCastMoney==0){
+
+		}*/
+
+	}
+	
+	
+	
+	
+	
+	
+	
+
+}
+
+
+
+
+
+
+
+
+

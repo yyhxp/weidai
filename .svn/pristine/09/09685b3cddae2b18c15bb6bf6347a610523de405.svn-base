@@ -1,0 +1,58 @@
+.cunguan-nameid {
+    width: 1144px;
+    border: 1px solid #e3e3e3;
+    margin: 0 auto;
+    padding: 142px 0;
+    font-size: 14px;
+    background: #fff;
+}
+.cunguan-nameid .main{
+	width:355px;
+	margin:0 auto;
+}
+.cunguan-nameid .main p{
+	margin-bottom:24px;
+	position: relative;
+}
+.cunguan-nameid .main p.contact{
+	width: 275px;
+    margin-left: 77px;
+}
+.cunguan-nameid .main label{
+	display:inline-block;
+	width:77px;
+	text-align: right;
+}
+.cunguan-nameid .main input{
+	width:245px;
+}
+.cunguan-nameid .main select{
+	width:275px;
+	height:43px;
+	padding:10px 14px;
+	border-color:#e3e3e3;
+}
+.cunguan-nameid .main button{
+	width:275px;
+	height:42px;
+	line-height:42px;
+	margin-left:77px;
+	margin-top:16px;
+}
+.main span{
+	position: absolute;
+	/*bottom:-24px;*/
+	top:43px;
+	left:77px;
+}
+.main span i.tip-icon{
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-image: url("/weidai/statics/images/iconx.png");
+    background-repeat: no-repeat;
+    margin-right: 4px;
+}
+span.error{color:#ff5722;}
+span.error i.tip-icon{background-position: -80px -0px;}
+span.right i.tip-icon{background-position: -120px -0px;}

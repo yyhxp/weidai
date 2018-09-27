@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.receivables.ReceivablesMapper">
+	<insert id="addReceivables" parameterType="Receivables">
+	INSERT  INTO `receivables`
+	(`periods`,`tRDate`,`tRMoney`,`tRInterest`,`RDate`,`RMoney`,`RInterest`,`lStatus`,`bId`) 
+ VALUES (#{periods},#{tRDate},#{tRMoney},#{tRInterest},#{RDate},#{RMoney},#{RInterest},#{lStatus},#{bId})
+	
+	</insert>
+	
+	
+	
+	
+</mapper>

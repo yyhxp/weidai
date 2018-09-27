@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.weidai.dao.bid.BidMapper">
+	<select id="getBil"  parameterType="int"  resultType="Bid">
+		select * from bid where uId=#{uId}
+	</select>
+	<select id="getYouBid" resultType="Bid">
+		select * from bid where bTid=1 and bFull='nofu'
+		order by bCreateDate desc
+		limit 0,2
+	</select>
+	<select id="getSixBid" resultType="Bid">
+		select * from bid 
+		order by bCreateDate desc
+		limit 0,6
+	</select>
+	
+	<!-- /*@author:何小平
+	 * 功能模块：优选智投标信息的展示 -->	
+	<select id="getzhitouBid" resultType="Bid">
+	SELECT * FROM bid AS b ,bidtype AS t 
+	WHERE t.bTid=1=b.bTid ORDER BY bFull DESC
+	<if test="starNum !=null and pageSize !=null">limit #{starNum},#{pageSize}</if>	
+	</select>
+	
+	<!--获取智投标的信息总条数！  -->
+	<select id="getztTotalCount" resultType="int">
+	select count(1) FROM bid AS b ,bidtype AS t 
+	WHERE t.bTid=1=b.bTid	
+	</select>
+
+	<!--/*@author:何小平
+	  功能模块：优选智投标的信息查询功能——跟据项目期限小于3个月进行查询-->
+	   
+	<select id="getzhitouBid1" resultType="Bid">
+	SELECT * FROM bid AS b , bidtype AS t 
+	WHERE t.bTid=1=b.bTid AND bTimelimit &lt;=3 ORDER BY bFull DESC
+	</select>
+	
+	<!-- *@author:何小平
+	 * 功能模块：优选智投标的信息查询功能——跟据项目期限3-12个月进行查询 -->
+	
+	<select id="getzhitouBid2" resultType="Bid">
+		SELECT * FROM bid AS b , bidtype AS t 
+	WHERE t.bTid=1=b.bTid AND bTimelimit &gt;3 AND bTimelimit &lt;=12 ORDER BY bFull DESC
+	</select>
+	
+	
+	<!-- @author:何小平
+	 * 功能模块：优选智投标的信息查询功能——跟据项目期限12个月以上进行查询 -->
+	<select id="getzhitouBid3" resultType="Bid">
+		SELECT * FROM bid AS b , bidtype AS t 
+	WHERE t.bTid=1=b.bTid AND bTimelimit &gt;12  ORDER BY bFull DESC
+	</select>
+	
+	
+	
+	<!-- 获得散标总数量 -->
+	<select id="getsbcount" resultType="int">	
+    SELECT COUNT(1)FROM bid AS b ,bidtype AS t 
+	WHERE b.bTid=2=t.bTId
+	</select>
+
+	<!-- /*@author:何小平
+	 * 功能模块：散标标的信息前台展示 -->
+	<select id="getsanbiao" resultType="Bid">
+		
+	SELECT *FROM bid WHERE bTid=2  ORDER BY bFull DESC
+	</select>
+	
+	<!-- @author:何小平
+	 * 功能模块：散标标的信息查询功能——跟据项目期限小于3个月进行查询 -->	
+		<select id="getsanbiao1" resultType="Bid">
+		SELECT *FROM bid WHERE bTid=2 AND
+	 bTimelimit &lt;=3 ORDER BY bFull DESC
+	</select>
+	
+	<!-- /*@author:何小平
+	 * 功能模块：散标标的信息查询功能——跟据项目期限大于3个月小于12个月进行查询 -->
+		<select id="getsanbiao2" resultType="Bid">
+		SELECT *FROM bid WHERE bTid=2 AND bTimelimit &gt;3 AND 
+		bTimelimit &lt;=12  ORDER BY bFull DESC
+	</select>
+	
+	<!-- /*@author:何小平
+	 * 功能模块：散标标的信息查询功能——跟据项目期限大于12个月进行查询 -->
+		<select id="getsanbiao3" resultType="Bid">
+		SELECT * FROM bid AS b , bidtype AS t 
+	WHERE t.bTid=1=b.bTid AND bTimelimit &gt;12  ORDER BY bFull DESC
+	</select>
+	
+	
+	<!-- 通过bid获取标的详细信息 -->
+	
+	<select id="getBidById" resultType="Bid">	
+    SELECT * FROM bid WHERE 1=1
+    <if test=" bId !=null and bId !=''">
+   and bId=#{bId}	
+    </if>
+	</select>
+
+	 <!-- 
+   * 点击优选智投购买按钮，该标的剩余可投金额减少相应数额
+   * 何小平 -->
+	
+	<update id="updateMoneyByBid">	
+	UPDATE bid SET bCanBeCastMoney=#{bCanBeCastMoney} WHERE bId=#{bId}
+	</update>
+<<<<<<< .mine
+	<update id="updatebfullByBid">	
+	UPDATE bid SET bCanBeCastMoney='full' WHERE bId=#{bId}
+	</update>
+=======
+>>>>>>> .r128
+
+	<!-- 获取散标列表 -->
+		<select id="zhgetsblb" resultType="Bid" parameterType="int">
+		SELECT bItemType,bRate,bTimelimit,bProjectTotolMoney, bCanBeCastMoney,bRepayment FROM bid
+		
+			<if test="month==1">
+			WHERE bTimelimit&lt;3
+			</if>
+			<if test="month==3">
+			WHERE bTimelimit&gt;3 and bTimelimit&lt;12
+			</if>
+			<if test="month==2">
+			WHERE  bTimelimit&gt;12
+			</if>
+		</select>	
+</mapper>
